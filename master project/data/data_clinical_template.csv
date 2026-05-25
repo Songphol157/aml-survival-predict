@@ -1,0 +1,201 @@
+patient_id,npm1_cat,tp53_cat,asxl1_cat,runx1_cat,flt3_itd_cat,death,is_denovo,age_at_dx,ETHNICITY,RACE,sex,OS_MONTHS,eln_class,karyotype,date_dx,date_last
+1,Negative,Negative,Negative,Negative,Negative,yes,yes,50,NOT HISPANIC OR LATINO,WHITE,Male,11.9908,Intermediate,"46,XY[20]",1/1/2000,12/31/2000
+2,Negative,Negative,Negative,Negative,Negative,yes,yes,61,NOT HISPANIC OR LATINO,WHITE,Female,26.0184,Intermediate,"46,XX[20]",1/1/2000,3/3/2002
+3,Negative,Negative,Negative,Negative,Negative,no,yes,30,NOT HISPANIC OR LATINO,WHITE,Male,84.0013,Intermediate,"46,XY[20]",1/1/2000,1/1/2007
+4,Negative,Negative,Negative,Negative,Negative,yes,no,76,NOT HISPANIC OR LATINO,WHITE,Male,18.9553,Intermediate,"46,XY[20]",1/1/2000,7/31/2001
+5,Negative,Negative,Negative,Negative,Negative,yes,yes,46,NOT HISPANIC OR LATINO,WHITE,Male,31.0447,Favorable,"46,XY,t(8;21)[20]",1/1/2000,8/3/2002
+6,Negative,Negative,Negative,Negative,Negative,yes,yes,68,NOT HISPANIC OR LATINO,WHITE,Female,5.94612,Intermediate,"46,XX[20]",1/1/2000,6/30/2000
+7,Negative,Negative,Negative,Negative,Negative,no,yes,23,NOT HISPANIC OR LATINO,WHITE,Male,93.9882,Intermediate,"46,XY[20]",1/1/2000,11/1/2007
+8,Negative,Negative,Negative,Negative,Negative,yes,yes,64,NOT HISPANIC OR LATINO,WHITE,Female,2.03679,Intermediate,"46,XX[20]",1/1/2000,3/3/2000
+9,Negative,Negative,Negative,Negative,Negative,yes,yes,76,NOT HISPANIC OR LATINO,BLACK OR AFRICAN AMERICAN,Female,1.0184,Intermediate,"46,XX[20]",1/1/2000,2/1/2000
+10,Negative,Negative,Negative,Negative,Negative,yes,yes,81,NOT HISPANIC OR LATINO,WHITE,Male,7.98292,Intermediate,"46,XY[20]",1/1/2000,8/31/2000
+11,Negative,Negative,Negative,Negative,Negative,yes,yes,25,NOT HISPANIC OR LATINO,BLACK OR AFRICAN AMERICAN,Female,12.0237,Intermediate,"46,XX[20]",1/1/2000,1/1/2001
+12,Negative,Negative,Negative,Negative,Negative,yes,yes,78,NOT HISPANIC OR LATINO,WHITE,Male,1.0184,Adverse,Complex,1/1/2000,2/1/2000
+13,Negative,Negative,Negative,Negative,Negative,yes,yes,39,NOT HISPANIC OR LATINO,WHITE,Female,26.0184,Adverse,Complex,1/1/2000,3/3/2002
+14,Negative,Negative,Negative,Negative,Negative,yes,yes,49,NOT HISPANIC OR LATINO,WHITE,Male,27.0039,Favorable,"46,XY,inv(16)[20]",1/1/2000,4/2/2002
+15,Negative,Negative,Negative,Negative,Negative,yes,yes,57,NOT HISPANIC OR LATINO,WHITE,Female,8.04862,Intermediate,"46,XX[20]",1/1/2000,9/2/2000
+16,Negative,Negative,Negative,Negative,Negative,yes,yes,64,NOT HISPANIC OR LATINO,WHITE,Male,8.96846,Intermediate,"46,XY[20]",1/1/2000,9/30/2000
+17,Negative,Negative,Negative,Negative,Negative,yes,yes,62,NOT HISPANIC OR LATINO,ASIAN,Female,9.95401,Intermediate,"46,XX[20]",1/1/2000,10/30/2000
+18,Negative,Negative,Negative,Negative,Negative,no,no,52,NOT HISPANIC OR LATINO,WHITE,Female,81.9974,Favorable,t(8;21),1/1/2000,11/1/2006
+19,Negative,Negative,Negative,Negative,Negative,yes,yes,76,NOT HISPANIC OR LATINO,WHITE,Male,0,Adverse,Complex,1/1/2000,1/1/2000
+20,Negative,Negative,Negative,Negative,Negative,yes,yes,64,NOT HISPANIC OR LATINO,WHITE,Male,27.0039,Intermediate,"46,XY[20]",1/1/2000,4/2/2002
+21,Negative,Negative,Negative,Negative,Negative,yes,yes,65,NOT HISPANIC OR LATINO,WHITE,Male,31.9645,Intermediate,"46,XY[20]",1/1/2000,8/31/2002
+22,Negative,Negative,Negative,Negative,Negative,yes,yes,61,NOT HISPANIC OR LATINO,WHITE,Female,0,Favorable,t(15;17),1/1/2000,1/1/2000
+23,Negative,Negative,Negative,Negative,Negative,yes,yes,45,NOT HISPANIC OR LATINO,WHITE,Male,0.985545,Intermediate,"46,XY[20]",1/1/2000,1/31/2000
+24,Negative,Negative,Negative,Negative,Negative,yes,yes,31,NOT HISPANIC OR LATINO,WHITE,Female,6.96452,Intermediate,"46,XX[20]",1/1/2000,7/31/2000
+25,Negative,Negative,Negative,Negative,Negative,yes,yes,64,NOT HISPANIC OR LATINO,WHITE,Female,24.0145,Intermediate,"46,XX[20]",1/1/2000,1/1/2002
+26,Negative,Negative,Negative,Negative,Negative,yes,yes,33,NOT HISPANIC OR LATINO,WHITE,Male,8.96846,Intermediate,"46,XY[20]",1/1/2000,9/30/2000
+27,Negative,Negative,Negative,Negative,Negative,no,yes,55,NOT HISPANIC OR LATINO,WHITE,Male,75.0329,Intermediate,"46,XY[20]",1/1/2000,4/3/2006
+28,Negative,Negative,Negative,Negative,Negative,yes,yes,50,NOT HISPANIC OR LATINO,BLACK OR AFRICAN AMERICAN,Male,8.96846,Intermediate,"46,XY[20]",1/1/2000,9/30/2000
+29,Negative,Negative,Negative,Negative,Negative,yes,yes,64,NOT HISPANIC OR LATINO,WHITE,Female,9.03417,Intermediate,"46,XX[20]",1/1/2000,10/2/2000
+30,Negative,Negative,Negative,Negative,Negative,yes,yes,59,NOT HISPANIC OR LATINO,WHITE,Male,21.025,Intermediate,"46,XY[20]",1/1/2000,10/2/2001
+31,Negative,Negative,Negative,Negative,Negative,yes,yes,60,NOT HISPANIC OR LATINO,WHITE,Female,11.9908,Intermediate,"46,XX[20]",1/1/2000,12/31/2000
+32,Negative,Negative,Negative,Negative,Negative,yes,yes,77,NOT HISPANIC OR LATINO,WHITE,Male,14.9803,Intermediate,"46,XY[20]",1/1/2000,4/1/2001
+33,Negative,Negative,Negative,Negative,Negative,yes,yes,33,NOT HISPANIC OR LATINO,WHITE,Male,8.04862,Intermediate,"46,XY[20]",1/1/2000,9/2/2000
+34,Negative,Negative,Negative,Negative,Negative,no,yes,48,NOT HISPANIC OR LATINO,WHITE,Male,54.9606,Intermediate,"46,XY[20]",1/1/2000,7/31/2004
+35,Negative,Negative,Negative,Negative,Negative,yes,yes,35,NOT HISPANIC OR LATINO,WHITE,Male,17.0171,Intermediate,"46,XY[20]",1/1/2000,6/2/2001
+36,Negative,Negative,Negative,Negative,Negative,yes,yes,66,NOT HISPANIC OR LATINO,WHITE,Female,0,Intermediate,"46,XX[20]",1/1/2000,1/1/2000
+37,Negative,Negative,Negative,Negative,Negative,yes,yes,67,NOT HISPANIC OR LATINO,WHITE,Male,11.9908,Adverse,Complex,1/1/2000,12/31/2000
+38,Negative,Negative,Negative,Negative,Negative,yes,yes,51,NOT HISPANIC OR LATINO,WHITE,Female,15.9658,Intermediate,"46,XX[20]",1/1/2000,5/1/2001
+39,Negative,Negative,Negative,Negative,Negative,yes,yes,74,NOT HISPANIC OR LATINO,WHITE,Male,0.919842,Favorable,"46,XY,t(15;17)[20]",1/1/2000,1/29/2000
+40,Negative,Negative,Negative,Negative,Negative,yes,yes,51,NOT HISPANIC OR LATINO,WHITE,Female,46.025,Favorable,t(15;17),1/1/2000,11/2/2003
+41,Negative,Negative,Negative,Negative,Negative,yes,yes,64,NOT HISPANIC OR LATINO,WHITE,Male,0,Intermediate,"46,XY[20]",1/1/2000,1/1/2000
+42,Negative,Negative,Negative,Negative,Negative,yes,yes,77,NOT HISPANIC OR LATINO,WHITE,Male,7.06307,Intermediate,"46,XY[20]",1/1/2000,8/3/2000
+43,Negative,Negative,Negative,Negative,Negative,yes,yes,63,NOT HISPANIC OR LATINO,WHITE,Male,4.00788,Intermediate,"46,XY[20]",1/1/2000,5/2/2000
+44,Negative,Negative,Negative,Negative,Negative,yes,yes,37,NOT HISPANIC OR LATINO,WHITE,Female,9.98686,Intermediate,"46,XX[20]",1/1/2000,10/31/2000
+45,Negative,Negative,Negative,Negative,Negative,yes,yes,57,NOT HISPANIC OR LATINO,WHITE,Female,46.0578,Favorable,"46,XX,inv(16)[20]",1/1/2000,11/3/2003
+46,Negative,Negative,Negative,Negative,Negative,yes,no,53,NOT HISPANIC OR LATINO,WHITE,Male,19.9737,Intermediate,"46,XY[20]",1/1/2000,8/31/2001
+47,Negative,Negative,Negative,Negative,Negative,yes,yes,62,NOT HISPANIC OR LATINO,WHITE,Male,14.9474,Intermediate,"46,XY[20]",1/1/2000,3/31/2001
+48,Negative,Negative,Negative,Negative,Negative,no,yes,39,NOT HISPANIC OR LATINO,WHITE,Male,72.9304,Intermediate,"46,XY[20]",1/1/2000,1/29/2006
+49,Negative,Negative,Negative,Negative,Negative,yes,yes,72,NOT HISPANIC OR LATINO,BLACK OR AFRICAN AMERICAN,Female,2.00394,Intermediate,"46,XX[20]",1/1/2000,3/2/2000
+50,Negative,Negative,Negative,Negative,Negative,yes,yes,66,NOT HISPANIC OR LATINO,WHITE,Female,7.95007,Intermediate,"46,XX[20]",1/1/2000,8/30/2000
+51,Negative,Negative,Negative,Negative,Negative,yes,yes,51,NOT HISPANIC OR LATINO,WHITE,Male,2.92378,Intermediate,"46,XY[20]",1/1/2000,3/30/2000
+52,Negative,Negative,Negative,Negative,Negative,yes,yes,51,NOT HISPANIC OR LATINO,WHITE,Female,12.0237,Intermediate,"46,XX[20]",1/1/2000,1/1/2001
+53,Negative,Negative,Negative,Negative,Negative,yes,yes,18,NOT HISPANIC OR LATINO,WHITE,Male,6.96452,Adverse,Complex,1/1/2000,7/31/2000
+54,Negative,Negative,Negative,Negative,Negative,yes,yes,63,NOT HISPANIC OR LATINO,WHITE,Male,4.92773,Intermediate,"46,XY[20]",1/1/2000,5/30/2000
+55,Negative,Negative,Negative,Negative,Negative,yes,yes,54,NOT HISPANIC OR LATINO,WHITE,Male,10.0526,Adverse,Complex,1/1/2000,11/2/2000
+56,Negative,Negative,Negative,Negative,Negative,yes,yes,75,NOT HISPANIC OR LATINO,WHITE,Female,18.9553,Favorable,t(8;21),1/1/2000,7/31/2001
+57,Negative,Negative,Negative,Negative,Negative,yes,yes,40,NOT HISPANIC OR LATINO,BLACK OR AFRICAN AMERICAN,Male,9.98686,Intermediate,"46,XY[20]",1/1/2000,10/31/2000
+58,Negative,Negative,Negative,Negative,Negative,yes,yes,60,NOT HISPANIC OR LATINO,WHITE,Female,14.0276,Adverse,Complex,1/1/2000,3/3/2001
+59,Negative,Negative,Negative,Negative,Negative,yes,yes,76,NOT HISPANIC OR LATINO,WHITE,Male,0,Intermediate,"46,XY[20]",1/1/2000,1/1/2000
+60,Negative,Negative,Negative,Negative,Negative,no,yes,33,NOT HISPANIC OR LATINO,BLACK OR AFRICAN AMERICAN,Female,46.9777,Intermediate,"46,XX[20]",1/1/2000,12/1/2003
+61,Negative,Negative,Negative,Negative,Negative,yes,yes,63,NOT HISPANIC OR LATINO,WHITE,Male,1.0184,Intermediate,"46,XY[20]",1/1/2000,2/1/2000
+62,Negative,Negative,Negative,Negative,Negative,yes,yes,54,HISPANIC OR LATINO,WHITE,Female,18.9553,Intermediate,"46,XX[20]",1/1/2000,7/31/2001
+63,Negative,Negative,Negative,Negative,Negative,yes,yes,75,NOT HISPANIC OR LATINO,WHITE,Male,2.00394,Intermediate,"46,XY[20]",1/1/2000,3/2/2000
+64,Negative,Negative,Negative,Negative,Negative,yes,yes,67,NOT HISPANIC OR LATINO,WHITE,Male,5.02628,Intermediate,"46,XY[20]",1/1/2000,6/2/2000
+65,Negative,Negative,Negative,Negative,Negative,yes,yes,66,NOT HISPANIC OR LATINO,WHITE,Female,6.04468,Intermediate,"46,XX[20]",1/1/2000,7/3/2000
+66,Negative,Negative,Negative,Negative,Negative,yes,yes,77,NOT HISPANIC OR LATINO,WHITE,Male,4.96058,Adverse,Complex,1/1/2000,5/31/2000
+67,Positive,Negative,Negative,Negative,Negative,no,yes,64,NOT HISPANIC OR LATINO,BLACK OR AFRICAN AMERICAN,Female,7.98292,Favorable,"46,XX[20]",1/1/2000,8/31/2000
+68,Negative,Negative,Negative,Negative,Negative,yes,yes,76,NOT HISPANIC OR LATINO,WHITE,Male,5.02628,Favorable,"46,XY,inv(16)[20]",1/1/2000,6/2/2000
+69,Positive,Negative,Negative,Negative,Negative,no,yes,51,NOT HISPANIC OR LATINO,BLACK OR AFRICAN AMERICAN,Male,5.02628,Favorable,"46,XY[20]",1/1/2000,6/2/2000
+70,Negative,Negative,Negative,Negative,Negative,no,yes,42,NOT HISPANIC OR LATINO,BLACK OR AFRICAN AMERICAN,Male,20.9593,Adverse,Complex,1/1/2000,9/30/2001
+71,Negative,Negative,Negative,Negative,Negative,no,yes,51,NOT HISPANIC OR LATINO,WHITE,Female,8.96846,Intermediate,"46,XX[20]",1/1/2000,9/30/2000
+72,Negative,Negative,Negative,Negative,Negative,no,yes,59,NOT HISPANIC OR LATINO,WHITE,Male,13.0092,Adverse,Complex,1/1/2000,1/31/2001
+73,Negative,Negative,Negative,Negative,Negative,no,yes,43,NOT HISPANIC OR LATINO,WHITE,Male,6.96452,Favorable,"46,XY,t(8;21)[20]",1/1/2000,7/31/2000
+74,Negative,Negative,Negative,Negative,Negative,no,yes,45,NOT HISPANIC OR LATINO,WHITE,Female,40.046,Intermediate,"46,XX[20]",1/1/2000,5/4/2003
+75,Positive,Negative,Negative,Negative,Negative,no,no,60,NOT HISPANIC OR LATINO,WHITE,Female,20.9593,Favorable,"46,XX[20]",1/1/2000,9/30/2001
+76,Negative,Negative,Negative,Negative,Negative,yes,yes,47,NOT HISPANIC OR LATINO,WHITE,Female,11.9908,Adverse,Complex,1/1/2000,12/31/2000
+77,Negative,Negative,Negative,Negative,Negative,no,yes,68,NOT HISPANIC OR LATINO,WHITE,Female,8.04862,Intermediate,"46,XX[20]",1/1/2000,9/2/2000
+78,Negative,Negative,Negative,Negative,Negative,yes,yes,24,NOT HISPANIC OR LATINO,WHITE,Male,13.929,Intermediate,"46,XY[20]",1/1/2000,2/28/2001
+79,Negative,Negative,Negative,Negative,Negative,no,yes,48,NOT HISPANIC OR LATINO,WHITE,Female,12.9106,Intermediate,"46,XX[20]",1/1/2000,1/28/2001
+80,Negative,Negative,Negative,Negative,Negative,yes,yes,73,,WHITE,Female,11.9908,Intermediate,"46,XX[20]",1/1/2000,12/31/2000
+81,Negative,Negative,Negative,Negative,Negative,no,yes,60,NOT HISPANIC OR LATINO,WHITE,Male,23.9816,Adverse,Complex,1/1/2000,12/31/2001
+82,Negative,Negative,Negative,Negative,Negative,yes,yes,44,NOT HISPANIC OR LATINO,WHITE,Female,24.0145,Intermediate,"46,XX[20]",1/1/2000,1/1/2002
+83,Negative,Positive,Negative,Negative,Negative,yes,yes,71,NOT HISPANIC OR LATINO,WHITE,Male,7.03022,Adverse,Complex,1/1/2000,8/2/2000
+84,Negative,Negative,Negative,Negative,Negative,no,yes,26,NOT HISPANIC OR LATINO,WHITE,Male,5.94612,Favorable,"46,XY,t(8;21)[20]",1/1/2000,6/30/2000
+85,Negative,Negative,Negative,Negative,Negative,yes,yes,60,NOT HISPANIC OR LATINO,WHITE,Female,,Adverse,Complex,1/1/2000,1/1/2000
+86,Negative,Negative,Negative,Negative,Negative,no,yes,57,NOT HISPANIC OR LATINO,WHITE,Male,10.9724,Intermediate,"46,XY[20]",1/1/2000,11/30/2000
+87,Negative,Negative,Negative,Negative,Negative,no,yes,55,NOT HISPANIC OR LATINO,WHITE,Male,9.98686,Favorable,"46,XY,inv(16)[20]",1/1/2000,10/31/2000
+88,Negative,Negative,Negative,Negative,Negative,yes,yes,69,NOT HISPANIC OR LATINO,WHITE,Male,0,Intermediate,"46,XY[20]",1/1/2000,1/1/2000
+89,Negative,Negative,Negative,Negative,Negative,yes,yes,42,NOT HISPANIC OR LATINO,BLACK OR AFRICAN AMERICAN,Male,,Adverse,Complex,1/1/2000,1/1/2000
+90,Negative,Negative,Negative,Negative,Negative,no,yes,42,NOT HISPANIC OR LATINO,WHITE,Female,30.979,Favorable,"46,XX,inv(16)[20]",1/1/2000,8/1/2002
+91,Negative,Negative,Negative,Negative,Negative,yes,yes,45,NOT HISPANIC OR LATINO,WHITE,Male,6.96452,Intermediate,"46,XY[20]",1/1/2000,7/31/2000
+92,Negative,Negative,Negative,Negative,Negative,yes,yes,50,NOT HISPANIC OR LATINO,WHITE,Female,5.94612,Intermediate,t(9;11),1/1/2000,6/30/2000
+93,Positive,Negative,Negative,Negative,Positive,yes,yes,41,NOT HISPANIC OR LATINO,WHITE,Female,5.02628,Favorable,"46,XX[20]",1/1/2000,6/2/2000
+94,Negative,Negative,Negative,Negative,Negative,yes,yes,21,NOT HISPANIC OR LATINO,WHITE,Female,7.03022,Intermediate,"46,XX[20]",1/1/2000,8/2/2000
+95,Negative,Negative,Negative,Negative,Negative,no,yes,50,NOT HISPANIC OR LATINO,WHITE,Female,7.98292,Favorable,t(15;17),1/1/2000,8/31/2000
+96,Negative,Negative,Negative,Negative,Negative,no,yes,69,NOT HISPANIC OR LATINO,WHITE,Female,12.9106,Intermediate,"46,XX[20]",1/1/2000,1/28/2001
+97,Negative,Negative,Negative,Positive,Negative,yes,yes,76,NOT HISPANIC OR LATINO,WHITE,Female,22.0434,Adverse,"46,XX[20]",1/1/2000,11/2/2001
+98,Negative,Negative,Negative,Negative,Negative,yes,yes,70,NOT HISPANIC OR LATINO,BLACK OR AFRICAN AMERICAN,Male,6.04468,Intermediate,"46,XY[20]",1/1/2000,7/3/2000
+99,Negative,Negative,Negative,Negative,Negative,no,yes,27,NOT HISPANIC OR LATINO,BLACK OR AFRICAN AMERICAN,Male,1.93824,Adverse,Complex,1/1/2000,2/29/2000
+100,Negative,Negative,Negative,Negative,Negative,yes,yes,76,NOT HISPANIC OR LATINO,WHITE,Female,0,Intermediate,"46,XX[20]",1/1/2000,1/1/2000
+101,Negative,Positive,Negative,Negative,Negative,yes,yes,65,NOT HISPANIC OR LATINO,WHITE,Male,16.9842,Adverse,Complex,1/1/2000,6/1/2001
+102,Negative,Negative,Negative,Negative,Negative,no,yes,48,HISPANIC OR LATINO,WHITE,Male,52.9238,Favorable,"46,XY,t(15;17)[20]",1/1/2000,5/30/2004
+103,Negative,Negative,Negative,Negative,Negative,no,yes,59,NOT HISPANIC OR LATINO,WHITE,Male,18.9553,Favorable,"46,XY,t(15;17)[20]",1/1/2000,7/31/2001
+104,Negative,Negative,Negative,Negative,Negative,yes,yes,69,NOT HISPANIC OR LATINO,WHITE,Male,,Intermediate,"46,XY[20]",1/1/2000,1/1/2000
+105,Negative,Negative,Negative,Negative,Negative,yes,no,81,NOT HISPANIC OR LATINO,WHITE,Male,1.0184,Adverse,Complex,1/1/2000,2/1/2000
+106,Negative,Negative,Negative,Negative,Negative,no,yes,22,NOT HISPANIC OR LATINO,ASIAN,Male,0.985545,Intermediate,"46,XY[20]",1/1/2000,1/31/2000
+107,Negative,Negative,Negative,Negative,Positive,yes,yes,61,NOT HISPANIC OR LATINO,WHITE,Female,0,Intermediate,"46,XX[20]",1/1/2000,1/1/2000
+108,Negative,Negative,Negative,Negative,Negative,no,yes,51,NOT HISPANIC OR LATINO,BLACK OR AFRICAN AMERICAN,Female,38.9619,Adverse,Complex,1/1/2000,4/1/2003
+109,Negative,Negative,Negative,Positive,Negative,yes,yes,63,NOT HISPANIC OR LATINO,WHITE,Male,9.00131,Adverse,"46,XY[20]",1/1/2000,10/1/2000
+110,Negative,Negative,Negative,Negative,Negative,no,yes,61,NOT HISPANIC OR LATINO,WHITE,Male,39.9474,Intermediate,"46,XY[20]",1/1/2000,5/1/2003
+111,Negative,Negative,Negative,Negative,Negative,no,yes,22,NOT HISPANIC OR LATINO,WHITE,Female,26.0184,Favorable,"46,XX,inv(16)[20]",1/1/2000,3/3/2002
+112,Positive,Negative,Negative,Negative,Negative,yes,yes,73,NOT HISPANIC OR LATINO,WHITE,Female,0,Adverse,Complex,1/1/2000,1/1/2000
+113,Negative,Negative,Negative,Positive,Negative,no,yes,48,HISPANIC OR LATINO,WHITE,Female,28.975,Adverse,"46,XX[20]",1/1/2000,6/1/2002
+114,Negative,Positive,Positive,Negative,Negative,no,yes,41,NOT HISPANIC OR LATINO,WHITE,Female,39.9474,Adverse,Complex,1/1/2000,5/1/2003
+115,Negative,Negative,Negative,Negative,Negative,yes,yes,47,NOT HISPANIC OR LATINO,WHITE,Female,,Intermediate,"46,XX[20]",1/1/2000,1/1/2000
+116,Positive,Negative,Negative,Negative,Positive,no,yes,54,NOT HISPANIC OR LATINO,WHITE,Female,2.00394,Intermediate,"46,XX[20]",1/1/2000,3/2/2000
+117,Negative,Negative,Negative,Negative,Negative,yes,yes,44,NOT HISPANIC OR LATINO,WHITE,Male,12.0237,Adverse,Complex,1/1/2000,1/1/2001
+118,Negative,Negative,Negative,Negative,Negative,yes,yes,56,NOT HISPANIC OR LATINO,WHITE,Female,,Intermediate,"46,XX[20]",1/1/2000,1/1/2000
+119,Negative,Negative,Negative,Negative,Negative,yes,yes,83,NOT HISPANIC OR LATINO,WHITE,Male,0,Intermediate,"46,XY[20]",1/1/2000,1/1/2000
+120,Negative,Negative,Negative,Negative,Negative,yes,yes,78,NOT HISPANIC OR LATINO,WHITE,Male,1.0184,Intermediate,"46,XY[20]",1/1/2000,2/1/2000
+121,Negative,Negative,Negative,Negative,Negative,no,yes,59,NOT HISPANIC OR LATINO,WHITE,Male,2.95664,Intermediate,"46,XY[20]",1/1/2000,3/31/2000
+122,Positive,Negative,Negative,Negative,Negative,yes,yes,57,NOT HISPANIC OR LATINO,WHITE,Male,7.98292,Favorable,"46,XY[20]",1/1/2000,8/31/2000
+123,Negative,Negative,Negative,Negative,Negative,yes,yes,57,NOT HISPANIC OR LATINO,WHITE,Female,15.0131,Intermediate,"46,XX[20]",1/1/2000,4/2/2001
+124,Negative,Negative,Positive,Positive,Negative,yes,yes,88,NOT HISPANIC OR LATINO,WHITE,Female,2.95664,Adverse,"46,XX[20]",1/1/2000,3/31/2000
+125,Negative,Negative,Negative,Negative,Negative,yes,yes,43,NOT HISPANIC OR LATINO,BLACK OR AFRICAN AMERICAN,Female,1.93824,Adverse,Complex,1/1/2000,2/29/2000
+126,Negative,Negative,Negative,Negative,Negative,yes,no,71,NOT HISPANIC OR LATINO,WHITE,Female,4.04074,Adverse,Complex,1/1/2000,5/3/2000
+127,Negative,Negative,Negative,Negative,Negative,yes,yes,63,NOT HISPANIC OR LATINO,WHITE,Female,,Intermediate,"46,XX[20]",1/1/2000,1/1/2000
+128,Positive,Negative,Negative,Negative,Negative,yes,no,75,NOT HISPANIC OR LATINO,WHITE,Male,0,Favorable,"46,XY[20]",1/1/2000,1/1/2000
+129,Negative,Negative,Negative,Negative,Negative,no,no,62,NOT HISPANIC OR LATINO,WHITE,Male,0,Intermediate,"46,XY[20]",1/1/2000,1/1/2000
+130,Negative,Negative,Negative,Negative,Negative,yes,yes,58,NOT HISPANIC OR LATINO,WHITE,Male,4.00788,Intermediate,"46,XY[20]",1/1/2000,5/2/2000
+131,Negative,Negative,Negative,Negative,Negative,no,yes,65,NOT HISPANIC OR LATINO,WHITE,Male,0.919842,Intermediate,"46,XY[20]",1/1/2000,1/29/2000
+132,Negative,Positive,Negative,Negative,Negative,yes,no,66,NOT HISPANIC OR LATINO,WHITE,Male,2.00394,Adverse,Complex,1/1/2000,3/2/2000
+133,Negative,Negative,Negative,Negative,Negative,no,yes,60,NOT HISPANIC OR LATINO,WHITE,Female,1.93824,Intermediate,"46,XX[20]",1/1/2000,2/29/2000
+134,Negative,Negative,Negative,Negative,Negative,yes,yes,36,NOT HISPANIC OR LATINO,WHITE,Female,7.06307,Intermediate,t(8;21),1/1/2000,8/3/2000
+135,Negative,Positive,Negative,Negative,Negative,yes,yes,76,NOT HISPANIC OR LATINO,WHITE,Male,9.98686,Adverse,"46,XY[20]",1/1/2000,10/31/2000
+136,Negative,Negative,Negative,Negative,Negative,no,no,72,NOT HISPANIC OR LATINO,WHITE,Male,14.9474,Adverse,Complex,1/1/2000,3/31/2001
+137,Negative,Negative,Negative,Negative,Negative,yes,yes,35,NOT HISPANIC OR LATINO,WHITE,Male,,Intermediate,"46,XY[20]",1/1/2000,1/1/2000
+138,Negative,Negative,Negative,Negative,Negative,yes,no,73,NOT HISPANIC OR LATINO,WHITE,Male,0,Adverse,Complex,1/1/2000,1/1/2000
+139,Negative,Negative,Negative,Negative,Negative,no,yes,67,NOT HISPANIC OR LATINO,WHITE,Female,21.0578,Intermediate,"46,XX,inv(16)[20]",1/1/2000,10/3/2001
+140,Negative,Positive,Negative,Negative,Negative,yes,yes,70,NOT HISPANIC OR LATINO,WHITE,Female,,Adverse,Complex,1/1/2000,1/1/2000
+141,Negative,Negative,Negative,Negative,Negative,yes,yes,48,NOT HISPANIC OR LATINO,WHITE,Male,,Intermediate,"46,XY[20]",1/1/2000,1/1/2000
+142,Negative,Negative,Negative,Negative,Negative,yes,yes,65,NOT HISPANIC OR LATINO,WHITE,Female,7.98292,Adverse,Complex,1/1/2000,8/31/2000
+143,Negative,Negative,Negative,Negative,Negative,no,yes,41,NOT HISPANIC OR LATINO,WHITE,Male,,Intermediate,"46,XY[20]",1/1/2000,1/1/2000
+144,Negative,Negative,Negative,Negative,Negative,no,yes,52,NOT HISPANIC OR LATINO,WHITE,Male,1.0184,Intermediate,"46,XY[20]",1/1/2000,2/1/2000
+145,Negative,Negative,Negative,Negative,Negative,yes,yes,67,NOT HISPANIC OR LATINO,WHITE,Male,19.0539,Intermediate,"46,XY[20]",1/1/2000,8/3/2001
+146,Negative,Negative,Positive,Negative,Negative,no,yes,58,NOT HISPANIC OR LATINO,WHITE,Male,22.9632,Adverse,Complex,1/1/2000,11/30/2001
+147,Negative,Negative,Negative,Negative,Negative,no,yes,34,NOT HISPANIC OR LATINO,WHITE,Female,10.0526,Favorable,t(8;21),1/1/2000,11/2/2000
+148,Negative,Negative,Negative,Negative,Negative,yes,yes,60,NOT HISPANIC OR LATINO,WHITE,Female,1.0184,Adverse,Complex,1/1/2000,2/1/2000
+149,Negative,Negative,Negative,Negative,Negative,no,yes,55,NOT HISPANIC OR LATINO,WHITE,Female,49.0145,Intermediate,"46,XX[20]",1/1/2000,2/1/2004
+150,Negative,Negative,Negative,Negative,Negative,yes,yes,56,NOT HISPANIC OR LATINO,WHITE,Female,16.0644,Intermediate,"46,XX[20]",1/1/2000,5/4/2001
+151,Negative,Negative,Negative,Negative,Negative,yes,yes,61,NOT HISPANIC OR LATINO,WHITE,Male,6.01183,Intermediate,"46,XY,t(8;21)[20]",1/1/2000,7/2/2000
+152,Negative,Negative,Negative,Negative,Negative,no,yes,31,NOT HISPANIC OR LATINO,WHITE,Male,20.0066,Favorable,"46,XY,inv(16)[20]",1/1/2000,9/1/2001
+153,Negative,Negative,Negative,Negative,Negative,yes,yes,71,NOT HISPANIC OR LATINO,WHITE,Male,16.0644,Intermediate,"46,XY[20]",1/1/2000,5/4/2001
+154,Negative,Negative,Negative,Negative,Negative,yes,yes,56,NOT HISPANIC OR LATINO,WHITE,Male,53.9422,Intermediate,"46,XY[20]",1/1/2000,6/30/2004
+155,Negative,Negative,Negative,Negative,Negative,no,yes,57,NOT HISPANIC OR LATINO,WHITE,Female,41.9514,Intermediate,"46,XX[20]",1/1/2000,7/1/2003
+156,Negative,Negative,Negative,Negative,Negative,yes,yes,60,NOT HISPANIC OR LATINO,WHITE,Male,11.0053,Intermediate,"46,XY[20]",1/1/2000,12/1/2000
+157,Negative,Negative,Negative,Negative,Negative,yes,yes,57,NOT HISPANIC OR LATINO,WHITE,Female,28.0552,Intermediate,"46,XX[20]",1/1/2000,5/4/2002
+158,Negative,Negative,Negative,Negative,Negative,no,yes,58,NOT HISPANIC OR LATINO,WHITE,Male,34.0013,Intermediate,"46,XY[20]",1/1/2000,11/1/2002
+159,Negative,Negative,Negative,Negative,Negative,yes,yes,79,NOT HISPANIC OR LATINO,WHITE,Male,15.046,Intermediate,"46,XY[20]",1/1/2000,4/3/2001
+160,Negative,Negative,Negative,Negative,Negative,no,yes,55,NOT HISPANIC OR LATINO,WHITE,Male,37.0237,Intermediate,"46,XY[20]",1/1/2000,2/1/2003
+161,Negative,Negative,Negative,Negative,Negative,yes,no,34,NOT HISPANIC OR LATINO,WHITE,Female,10.0197,Intermediate,"46,XX[20]",1/1/2000,11/1/2000
+162,Negative,Negative,Negative,Negative,Negative,yes,yes,76,NOT HISPANIC OR LATINO,WHITE,Female,26.0184,Intermediate,"46,XX[20]",1/1/2000,3/3/2002
+163,Negative,Negative,Negative,Negative,Negative,yes,yes,82,NOT HISPANIC OR LATINO,WHITE,Female,0.985545,Intermediate,"46,XX[20]",1/1/2000,1/31/2000
+164,Negative,Negative,Negative,Negative,Negative,yes,yes,68,NOT HISPANIC OR LATINO,WHITE,Female,20.0066,Intermediate,"46,XX[20]",1/1/2000,9/1/2001
+165,Negative,Negative,Negative,Negative,Negative,yes,no,67,NOT HISPANIC OR LATINO,WHITE,Female,3.02234,Intermediate,"46,XX[20]",1/1/2000,4/2/2000
+166,Negative,Negative,Negative,Negative,Negative,yes,yes,54,NOT HISPANIC OR LATINO,BLACK OR AFRICAN AMERICAN,Male,,Intermediate,"46,XY[20]",1/1/2000,1/1/2000
+167,Negative,Negative,Negative,Negative,Negative,yes,yes,53,NOT HISPANIC OR LATINO,WHITE,Male,30.0591,Intermediate,"46,XY[20]",1/1/2000,7/4/2002
+168,Negative,Negative,Negative,Negative,Negative,yes,yes,71,NOT HISPANIC OR LATINO,WHITE,Female,1.0184,Intermediate,"46,XX[20]",1/1/2000,2/1/2000
+169,Negative,Negative,Negative,Negative,Negative,no,yes,61,NOT HISPANIC OR LATINO,WHITE,Female,22.9632,Intermediate,"46,XX[20]",1/1/2000,11/30/2001
+170,Negative,Negative,Negative,Negative,Negative,no,yes,30,NOT HISPANIC OR LATINO,WHITE,Female,22.0434,Intermediate,"46,XX[20]",1/1/2000,11/2/2001
+171,Negative,Negative,Negative,Negative,Negative,no,yes,50,NOT HISPANIC OR LATINO,WHITE,Male,22.9632,Favorable,"46,XY,t(15;17)[20]",1/1/2000,11/30/2001
+172,Negative,Negative,Negative,Negative,Negative,no,yes,35,NOT HISPANIC OR LATINO,WHITE,Female,15.9987,Intermediate,"46,XX[20]",1/1/2000,5/2/2001
+173,Negative,Negative,Negative,Negative,Negative,no,yes,29,,,Female,4.92773,Favorable,t(15;17),1/1/2000,5/30/2000
+174,Negative,Negative,Negative,Negative,Negative,yes,yes,45,NOT HISPANIC OR LATINO,WHITE,Male,11.0053,Intermediate,"46,XY[20]",1/1/2000,12/1/2000
+175,Negative,Negative,Negative,Negative,Negative,no,yes,38,NOT HISPANIC OR LATINO,WHITE,Male,38.0092,Intermediate,"46,XY[20]",1/1/2000,3/3/2003
+176,Negative,Negative,Negative,Negative,Negative,yes,yes,81,NOT HISPANIC OR LATINO,WHITE,Female,8.96846,Intermediate,"46,XX[20]",1/1/2000,9/30/2000
+177,Negative,Negative,Negative,Negative,Negative,yes,yes,31,NOT HISPANIC OR LATINO,WHITE,Female,6.96452,Intermediate,"46,XX[20]",1/1/2000,7/31/2000
+178,Negative,Negative,Negative,Negative,Negative,yes,yes,75,NOT HISPANIC OR LATINO,WHITE,Female,6.04468,Intermediate,"46,XX[20]",1/1/2000,7/3/2000
+179,Negative,Negative,Negative,Negative,Negative,yes,yes,67,NOT HISPANIC OR LATINO,WHITE,Female,0.985545,Intermediate,"46,XX[20]",1/1/2000,1/31/2000
+180,Negative,Negative,Negative,Negative,Negative,yes,yes,29,NOT HISPANIC OR LATINO,WHITE,Male,11.9908,Intermediate,"46,XY[20]",1/1/2000,12/31/2000
+181,Negative,Negative,Negative,Negative,Negative,no,yes,51,NOT HISPANIC OR LATINO,WHITE,Male,15.0131,Intermediate,"46,XY[20]",1/1/2000,4/2/2001
+182,Negative,Negative,Negative,Negative,Negative,no,yes,40,NOT HISPANIC OR LATINO,WHITE,Female,59.9869,Favorable,t(15;17),1/1/2000,12/31/2004
+183,Negative,Negative,Negative,Negative,Negative,yes,yes,32,NOT HISPANIC OR LATINO,WHITE,Female,56.0447,Intermediate,"46,XX[20]",1/1/2000,9/2/2004
+184,Negative,Negative,Negative,Negative,Negative,yes,yes,57,NOT HISPANIC OR LATINO,WHITE,Female,25,Intermediate,"46,XX[20]",1/1/2000,1/31/2002
+185,Negative,Negative,Negative,Negative,Negative,no,yes,25,NOT HISPANIC OR LATINO,WHITE,Male,59.067,Favorable,"46,XY,t(15;17)[20]",1/1/2000,12/3/2004
+186,Negative,Negative,Negative,Negative,Negative,no,yes,63,NOT HISPANIC OR LATINO,WHITE,Male,50.9527,Intermediate,"46,XY[20]",1/1/2000,3/31/2004
+187,Negative,Negative,Negative,Negative,Negative,no,no,74,NOT HISPANIC OR LATINO,WHITE,Male,51.9382,Intermediate,"46,XY[20]",1/1/2000,4/30/2004
+188,Negative,Negative,Negative,Negative,Negative,yes,yes,25,NOT HISPANIC OR LATINO,WHITE,Female,,Favorable,t(15;17),1/1/2000,1/1/2000
+189,Negative,Negative,Negative,Negative,Negative,yes,yes,68,NOT HISPANIC OR LATINO,WHITE,Female,1.0184,Favorable,t(15;17),1/1/2000,2/1/2000
+190,Negative,Negative,Negative,Negative,Negative,no,yes,62,NOT HISPANIC OR LATINO,WHITE,Male,56.9974,Favorable,"46,XY,t(15;17)[20]",1/1/2000,10/1/2004
+191,Negative,Negative,Negative,Negative,Negative,no,yes,25,NOT HISPANIC OR LATINO,WHITE,Male,41.0315,Intermediate,"46,XY[20]",1/1/2000,6/3/2003
+192,Negative,Negative,Negative,Negative,Negative,no,yes,31,NOT HISPANIC OR LATINO,WHITE,Female,51.9382,Favorable,t(15;17),1/1/2000,4/30/2004
+193,Negative,Negative,Negative,Negative,Negative,yes,yes,68,NOT HISPANIC OR LATINO,WHITE,Male,47.0105,Intermediate,"46,XY[20]",1/1/2000,12/2/2003
+194,Negative,Negative,Negative,Negative,Negative,no,yes,45,NOT HISPANIC OR LATINO,WHITE,Male,68.9882,Intermediate,"46,XY[20]",1/1/2000,10/1/2005
+195,Negative,Negative,Negative,Negative,Negative,yes,yes,61,NOT HISPANIC OR LATINO,WHITE,Male,15.933,Intermediate,"46,XY[20]",1/1/2000,4/30/2001
+196,Negative,Negative,Negative,Negative,Negative,no,yes,35,NOT HISPANIC OR LATINO,WHITE,Male,51.9382,Favorable,"46,XY,t(15;17)[20]",1/1/2000,4/30/2004
+197,Negative,Negative,Negative,Negative,Negative,yes,yes,22,NOT HISPANIC OR LATINO,WHITE,Male,27.0039,Intermediate,"46,XY[20]",1/1/2000,4/2/2002
+198,Negative,Negative,Negative,Negative,Negative,yes,yes,23,,,Male,18.9553,Intermediate,"46,XY[20]",1/1/2000,7/31/2001
+199,Negative,Negative,Negative,Negative,Negative,no,yes,21,NOT HISPANIC OR LATINO,WHITE,Female,61.9251,Intermediate,"46,XX[20]",1/1/2000,2/28/2005
+200,Negative,Negative,Negative,Negative,Negative,no,yes,53,NOT HISPANIC OR LATINO,WHITE,Male,61.9908,Favorable,"46,XY,t(15;17)[20]",1/1/2000,3/2/2005
