@@ -4,6 +4,8 @@ The input variables (age, sex, ELN 2017 risk, disease type, cytogenetics, FLT3-I
 
 Link: aml-survival-predict.com
 
+DOI: 10.5281/zenodo.22717853
+
 prototype/not-for-clinical-use
 
 Steve Tungjitviboonkun, MD, MS
