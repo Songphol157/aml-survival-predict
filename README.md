@@ -32,7 +32,9 @@ Methods
 Three survival modelling approaches were developed and compared:
 
 Random survival forest (RSF)
+
 Cox proportional hazards regression
+
 Gradient boosting machine (GBM) for survival
 
 Model performance was assessed using Harrell's C-index, time-dependent AUROC, and the Brier score, capturing discrimination at a single summary level, discrimination across the follow-up period, and overall calibration and accuracy respectively.
@@ -42,8 +44,11 @@ Missing values in the input variables were imputed using the median of the obser
 Internal validation used bootstrap resampling and 5-fold cross-validation to estimate out-of-sample performance and to guard against overfitting.
 
 Presentations
+
 Development and Validation of Machine Learning Models for Survival Prediction in Adult Acute Myeloid Leukemia (ML-AML) — accepted for poster presentation, ESMO Congress 2026, Madrid, 23–27 October 2026 (abstract #1443).
+
 Best Statistical & Computational Methods Abstract, UCSF Department of Epidemiology & Biostatistics Student Research Day, 19 May 2026.
+
 Citation
 
 If you use this software, please cite:
