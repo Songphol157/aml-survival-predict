@@ -19,14 +19,23 @@ What the model does
 Given the following inputs, the model returns an individualized survival probability curve and tabulated survival estimates at fixed time points:
 
 Input	Values
+
 Age at diagnosis	18–88 years
+
 Sex	Male / Female
+
 ELN 2017 risk category	Favorable / Intermediate / Adverse
+
 Disease type	De novo / Secondary
+
 Cytogenetics	Normal / Complex
+
 FLT3-ITD mutation	Positive / Negative
+
 NPM1 mutation	Positive / Negative
+
 RUNX1 mutation	Positive / Negative
+
 Methods
 
 Three survival modelling approaches were developed and compared:
