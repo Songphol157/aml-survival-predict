@@ -1,13 +1,13 @@
 # Master Project - External Validation Script
 # Machine Learning for Survival Analysis in AML
 # Python version 3.12
-# 05/04/2026
+# 04/06/2026
 # by Steve Tungjitviboonkun
 
 # Required packages are listed in requirements.txt
 # Install them using: pip install -r requirements.txt
 
-#Master Project/
+#Master_Project/
 #├── data/
 #│   └── data_clinical.csv
 #│   └── data_clinical_template.csv
@@ -21,7 +21,7 @@
 # Pipeline:
 # 1. Load and clean data
 # 2. Survival modeling with Cox, RSF, GBM
-# 3. Binary modeling for 12-month mortality
+# 3. Binary modeling for 24-month mortality
 # 4. Bootstrap robustness analysis
 # 5. Export results to DOCX
 
@@ -84,11 +84,12 @@ n_missing_os = df['os_months'].isna().sum()
 print('Patients with negative OS months (invalid):', n_negative_os)
 print('Patients with missing OS months:', n_missing_os)
 df = df[df['os_months'] > 0]
+df.loc[df['os_months'] == 0, 'os_months'] = 0.01
 
 print('Patients included in survival analysis:', len(df))
-# Exclude from binary model if censored <12 months (outcome unknown)
-uncertain_mask = ((df['death'] == 'no') | (df['death'] == 'No') | (df['death'] == 'NO')) & (df['os_months'] < 12)
-print('Patients excluded from binary model due to uncertain 12-month outcome:', uncertain_mask.sum())
+# Exclude from binary model if censored <24 months (outcome unknown)
+uncertain_mask = ((df['death'] == 'no') | (df['death'] == 'No') | (df['death'] == 'NO')) & (df['os_months'] < 24)
+print('Patients excluded from binary model due to uncertain 24-month outcome:', uncertain_mask.sum())
 
 # state the predictors, outcomes we will use
 predictors = [
@@ -258,10 +259,10 @@ print(df.dtypes)
 # check mean os_months by eln2017mode
 df.groupby('eln2017mode')['os_months'].agg(['mean', 'median', 'min', 'max', 'count']).reset_index()
 
-# Create binary dataframe for 12-month mortality
+# Create binary dataframe for 24-month mortality
 df_binary = df[~uncertain_mask].copy()
-df_binary['12_mo_death']=(df_binary['os_months'] < 12).astype(int)
-df_binary = df_binary[predictors + ['12_mo_death']] # binary model
+df_binary['24_mo_death']=(df_binary['os_months'] < 24).astype(int)
+df_binary = df_binary[predictors + ['24_mo_death']] # binary model
 print(df_binary.head())
 print(df_binary.dtypes)
 print('Patients included in binary analysis:', len(df_binary))
@@ -311,9 +312,21 @@ X_ext = X_ext.reindex(columns=trained_features, fill_value=0)
 survival_results = {}
 aucs = {}
 
-times = np.arange(3, 30)
+times = np.arange(6, 37)
 y_train_struct = joblib.load(os.path.join(MODELS_DIR, 'y_train_struct.joblib')) # load training from main script
 y_struct = Surv.from_arrays(event=y_event.to_numpy(dtype=bool), time=y_time)
+
+# --- Administrative censoring for time-dependent AUROC only ---
+train_max_time = y_train_struct['time'].max()
+auc_cap = train_max_time * 0.999
+n_capped = (y_time.to_numpy() > auc_cap).sum()
+if n_capped > 0:
+    print(f"Note: {n_capped} external patient(s) followed beyond the training "
+          f"max ({train_max_time:.1f} months) will be administratively censored "
+          f"at {auc_cap:.1f} months for the time-dependent AUROC calculation only.")
+time_for_auc = np.minimum(y_time.to_numpy(), auc_cap)
+event_for_auc = np.where(y_time.to_numpy() > auc_cap, False, y_event.to_numpy(dtype=bool))
+y_struct_auc = Surv.from_arrays(event=event_for_auc, time=time_for_auc)
 
 # Traditional ELN2017 evaluation (using eln2017mode as risk score)
 X_eln = X_ext[['eln2017mode']].copy()
@@ -324,7 +337,7 @@ cph_eln = CoxPHFitter()
 cph_eln.fit(cox_eln_df, duration_col='os_months', event_col='death')
 scores_eln = cph_eln.predict_partial_hazard(X_eln)
 survival_results['eln_cox_cindex'] = concordance_index(y_time, -scores_eln)
-auc_eln, _ = cumulative_dynamic_auc(y_train_struct, y_struct, scores_eln, times)
+auc_eln, _ = cumulative_dynamic_auc(y_train_struct, y_struct_auc, scores_eln, times)
 
 
 
@@ -332,25 +345,23 @@ if 'cph' in models:
     try:
         scores_cox = models['cph'].predict_partial_hazard(X_ext)
         survival_results['cox_cindex'] = concordance_index(y_time, -scores_cox)
-        auc_cph, _ = cumulative_dynamic_auc(y_train_struct, y_struct, scores_cox, times)
+        auc_cph, _ = cumulative_dynamic_auc(y_train_struct, y_struct_auc, scores_cox, times)
         aucs['Cox'] = auc_cph
     except Exception as e:
         print('Cox evaluation error:', e)
 if 'rsf' in models:
     try:
-        y_struct = Surv.from_arrays(event=y_event.to_numpy(dtype=bool), time=y_time)
         survival_results['rsf_cindex'] = models['rsf'].score(X_ext, y_struct)
         scores_rsf = models['rsf'].predict(X_ext)
-        auc_rsf, _ = cumulative_dynamic_auc(y_train_struct, y_struct, scores_rsf, times)
+        auc_rsf, _ = cumulative_dynamic_auc(y_train_struct, y_struct_auc, scores_rsf, times)
         aucs['RSF'] = auc_rsf
     except Exception as e:
         print('RSF evaluation error:', e)
 if 'gbm' in models:
     try:
-        y_struct = Surv.from_arrays(event=y_event.to_numpy(dtype=bool), time=y_time)
         survival_results['gbm_cindex'] = models['gbm'].score(X_ext, y_struct)
         scores_gbm = models['gbm'].predict(X_ext)
-        auc_gbm, _ = cumulative_dynamic_auc(y_train_struct, y_struct, scores_gbm, times)
+        auc_gbm, _ = cumulative_dynamic_auc(y_train_struct, y_struct_auc, scores_gbm, times)
         aucs['GBM'] = auc_gbm
     except Exception as e:
         print('GBM survival evaluation error:', e)
@@ -384,14 +395,14 @@ plt.close()
 print("\nSurvival model performance metrics (C-index):")
 print(cindex_df)
 
-# Step 5: Binary 12-month evaluation =================================================================
+# Step 5: Binary 24-month evaluation =================================================================
 aucs_lr, aucs_rf, aucs_xgb, aucs_mlp = [], [], [], []
 briers_lr, briers_rf, briers_xgb, briers_mlp = [], [], [], []
 probs_lr, probs_rf, probs_xgb, probs_mlp = [], [], [], []
 y_true_all = []
 
 Xb = df_binary[predictors].copy()
-yb = df_binary['12_mo_death']
+yb = df_binary['24_mo_death']
 y_true_all.extend(yb.tolist()) # collect true labels across all folds for calibration plot
 
 # Imputation for binary analysis (use most frequent / mode imputer)
@@ -500,7 +511,7 @@ for ax, (name, probs) in zip(axes.flat, plot_configs):
     ax.grid(True, linestyle='--', alpha=0.6)
 
 plt.tight_layout()
-plt.savefig(os.path.join(FIGURES_DIR, "calibration_1yr_models_ext.jpg"), dpi=300)
+plt.savefig(os.path.join(FIGURES_DIR, "calibration_2yr_models_ext.jpg"), dpi=300)
 plt.show()
 
 # --- Step 6: Bootstrap ---
@@ -550,7 +561,7 @@ for i in range(n_iterations):
     if len(df_binary) > 0:
         idxb = np.random.choice(len(df_binary), len(df_binary), replace=True)
         df_bi_bs = df_binary.iloc[idxb].reset_index(drop=True)
-        yb_bs = df_bi_bs['12_mo_death']
+        yb_bs = df_bi_bs['24_mo_death']
 
         Xb_bs = pd.get_dummies(pd.DataFrame(trained_imputer.transform(df_bi_bs[predictors]), columns=predictors), columns=cat_cols, drop_first=True)
         Xb_bs = Xb_bs.reindex(columns=trained_features_bin, fill_value=0)
@@ -625,7 +636,7 @@ doc.add_paragraph(f"Excluded due to missing death information: {n_missing_death_
 doc.add_paragraph(f"Excluded due to negative OS months (invalid): {n_negative_os}")
 doc.add_paragraph(f"Excluded due to missing OS months: {n_missing_os}")
 doc.add_paragraph(f"Included in survival analysis: {len(df)}")
-doc.add_paragraph(f"Excluded from binary model (censored <12 months, outcome unknown): {uncertain_mask.sum()}")
+doc.add_paragraph(f"Excluded from binary model (censored <24 months, outcome unknown): {uncertain_mask.sum()}")
 doc.add_paragraph(f"Included in binary models: {len(df_binary)}")
 df_to_doc_table(doc, summary_df, 'Summary Table: Age at Diagnosis and OS Months')
 df_to_doc_table(doc, gene_summary_df, 'Gene Mutation Summary Table')
@@ -634,7 +645,7 @@ df_to_doc_table(doc, denovo_summary, 'Denovo Category Summary Table')
 df_to_doc_table(doc, eln_summary, 'ELN 2017 Classification Summary Table')
 df_to_doc_table(doc, os_by_eln, 'OS Months by ELN2017 Classification Table')
 df_to_doc_table(doc, chrom_summary, 'Chromosome Category Summary Table')
-df_to_doc_table(doc, cindex_df, 'Survival Models Harrell\'s C-index Comparison and AUROC at 12 months')
+df_to_doc_table(doc, cindex_df, 'Survival Models Harrell\'s C-index Comparison')
 df_to_doc_table(doc, metrics_df, 'Binary Models Performance (AUROCs and Brier scores)')
 df_to_doc_table(doc, cindex_summary_df, '1000 Bootstrap Summary: C-index (Cox / RSF / GBM)')
 df_to_doc_table(doc, auroc_summary_df, '1000 Bootstrap Summary: AUROC (Logistic / RF / XGB)')
@@ -649,7 +660,7 @@ def add_fig(document, path, caption):
 
 add_fig(doc, os.path.join(FIGURES_DIR, 'time_survival_roc_ext.jpg'), 'Time-dependent AUROC for Cox, RSF, GBM survival')
 add_fig(doc, os.path.join(FIGURES_DIR, 'roc_curves_binary_models_ext.jpg'), 'ROC Curves for Binary Models (Logistic Regression, Random Forest, XGBoost, MLP)')
-add_fig(doc, os.path.join(FIGURES_DIR, 'calibration_1yr_models_ext.jpg'), 'Calibration Plots for Binary Models (Logistic Regression, Random Forest, XGBoost, MLP)')
+add_fig(doc, os.path.join(FIGURES_DIR, 'calibration_2yr_models_ext.jpg'), 'Calibration Plots for Binary Models (Logistic Regression, Random Forest, XGBoost, MLP)')
 
 doc.save(OUT_DOC)
 print('External validation report saved to', OUT_DOC)
