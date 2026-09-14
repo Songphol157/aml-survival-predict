@@ -1,6 +1,4 @@
-AML Survival Predict
-
-Machine learning survival prediction for adult acute myeloid leukemia, using clinical and genetic variables available at the time of diagnosis.
+Acute Myeloid Leukemia Survival Prediction
 
 Copyright (c) 2026 Songphol Tungjitviboonkun, MD, MS
 
