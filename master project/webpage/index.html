@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Machine Learning Model to predict survival in AML patients</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --bg: #f3f9f8;
+      --card: #ffffff;
+      --text: #16332f;
+      --muted: #5c7671;
+      --primary: #0f766e;
+      --primary-dark: #0b5a54;
+      --border: #d7e8e4;
+      --accent: #e6f5f2;
+      --success: #0f766e;
+      --shadow: 0 10px 30px rgba(15, 51, 47, 0.08);
+      --radius: 18px;
+
+      /* Extended palette: teal + coral, DNA-helix themed header */
+      --header-start: #0b3d3a;
+      --header-end: #0f766e;
+      --teal: #0d9488;
+      --teal-dark: #0b7a70;
+      --coral: #ef6461;
+      --coral-dark: #c8453f;
+      --amber: #d97706;
+      --amber-bg: #fff7e8;
+      --amber-border: #f3d59c;
+      --genetics-bg: #fef3f1;
+      --genetics-border: #f6cac8;
+      --genetics-accent: #c8453f;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #f8fcfb 0%, var(--bg) 100%);
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 28px 20px 36px;
+    }
+
+    header {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 80% 8%, rgba(239, 100, 97, 0.45) 0%, transparent 10%),
+        radial-gradient(circle at 86% 78%, rgba(251, 191, 36, 0.30) 0%, transparent 12%),
+        linear-gradient(135deg, var(--header-start) 0%, var(--header-end) 100%);
+      border-radius: 24px;
+      padding: 28px 30px;
+      box-shadow: 0 14px 34px rgba(11, 61, 58, 0.28);
+      margin-bottom: 22px;
+      color: #ffffff;
+      border-bottom: 4px solid var(--coral);
+    }
+
+    .header-pattern {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.16;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .header-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      margin: 0 0 6px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.78);
+      letter-spacing: 0.01em;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 2rem;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+    }
+
+    .ack {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .ack a {
+      color: #ffffff;
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .disclaimer {
+      margin-top: 16px;
+      padding: 14px 16px;
+      background: var(--amber-bg);
+      border: 1px solid var(--amber-border);
+      border-radius: 12px;
+      color: #7a5400;
+      font-size: 0.94rem;
+      line-height: 1.5;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border-top: 4px solid var(--primary);
+    }
+
+    .results {
+      border-top-color: var(--coral);
+    }
+
+    .panel {
+      padding: 20px;
+    }
+
+    .panel h2,
+    .results h2 {
+      margin: 0 0 14px;
+      font-size: 1.15rem;
+      letter-spacing: -0.01em;
+    }
+
+    .panel h2 {
+      color: var(--primary-dark);
+    }
+
+    .results h2 {
+      color: #000000;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fff;
+      color: var(--text);
+      font-size: 0.96rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.14);
+    }
+
+    .help {
+      margin-top: 5px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .btn {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #fff;
+      background: var(--coral);
+      cursor: pointer;
+      transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+      box-shadow: 0 10px 22px rgba(200, 69, 63, 0.28);
+      margin-top: 4px;
+    }
+
+    .btn:hover:not(:disabled) {
+      background: var(--coral-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 26px rgba(200, 69, 63, 0.34);
+    }
+
+    fieldset.genetics {
+      margin: 18px 0 14px;
+      padding: 16px 14px 6px;
+      border: 1px solid var(--genetics-border);
+      background: var(--genetics-bg);
+      border-radius: 14px;
+    }
+
+    fieldset.genetics legend {
+      padding: 0 8px;
+      font-weight: 700;
+      font-size: 0.98rem;
+      color: var(--genetics-accent);
+    }
+
+    .genetics-note {
+      margin: -4px 0 12px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .btn:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .results {
+      padding: 20px;
+    }
+
+    .status {
+      margin-bottom: 12px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: var(--accent);
+      color: var(--text);
+      border: 1px solid #cfe0ff;
+      display: none;
+      font-size: 0.95rem;
+    }
+
+    .chart-wrap {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      min-height: 420px;
+    }
+
+    #chartContainer {
+      height: 380px;
+    }
+
+    .table-wrap {
+      margin-top: 18px;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid #edf2f7;
+      font-size: 0.96rem;
+    }
+
+    th {
+      background: #f4f8ff;
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    .footer {
+      margin-top: 18px;
+      padding: 14px 18px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 0.94rem;
+      flex-wrap: wrap;
+    }
+
+    .visitor-count {
+      font-weight: 700;
+      color: var(--success);
+    }
+
+    .small-note {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+        #chartContainer {
+      position: relative;
+    }
+
+    #hoverTooltip {
+      position: absolute;
+      display: none;
+      pointer-events: none;
+      background: rgba(22, 51, 47, 0.92);
+      color: #fff;
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      transform: translate(12px, -12px);
+      white-space: nowrap;
+      z-index: 10;
+    }
+
+    @media (max-width: 1024px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      .chart-wrap {
+        min-height: 360px;
+      }
+      #chartContainer {
+        height: 320px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <svg class="header-pattern" viewBox="0 0 240 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <pattern id="helixPattern" width="60" height="200" patternUnits="userSpaceOnUse">
+            <path d="M0,20 Q15,0 30,20 Q45,40 60,20" fill="none" stroke="white" stroke-width="2"/>
+            <path d="M0,20 Q15,40 30,20 Q45,0 60,20" fill="none" stroke="white" stroke-width="2"/>
+            <line x1="15" y1="10" x2="15" y2="30" stroke="white" stroke-width="1.5"/>
+            <line x1="45" y1="10" x2="45" y2="30" stroke="white" stroke-width="1.5"/>
+            <path d="M0,80 Q15,60 30,80 Q45,100 60,80" fill="none" stroke="white" stroke-width="2"/>
+            <path d="M0,80 Q15,100 30,80 Q45,60 60,80" fill="none" stroke="white" stroke-width="2"/>
+            <line x1="15" y1="70" x2="15" y2="90" stroke="white" stroke-width="1.5"/>
+            <line x1="45" y1="70" x2="45" y2="90" stroke="white" stroke-width="1.5"/>
+            <path d="M0,140 Q15,120 30,140 Q45,160 60,140" fill="none" stroke="white" stroke-width="2"/>
+            <path d="M0,140 Q15,160 30,140 Q45,120 60,140" fill="none" stroke="white" stroke-width="2"/>
+            <line x1="15" y1="130" x2="15" y2="150" stroke="white" stroke-width="1.5"/>
+            <line x1="45" y1="130" x2="45" y2="150" stroke="white" stroke-width="1.5"/>
+          </pattern>
+        </defs>
+        <rect width="240" height="200" fill="url(#helixPattern)"/>
+      </svg>
+      <div class="header-inner">
+        <p class="eyebrow">Acute myeloid leukemia study</p>
+        <h1>Machine Learning Model to predict survival in AML patients</h1>
+        <p class="ack">
+          Developed by: Steve Tungjitviboonkun, MD, MS<br />
+          Department of Epidemiology &amp; Biostatistics, University of California San Francisco<br />
+          <a href="https://github.com/Songphol157/aml-survival-predict" target="_blank" rel="noopener noreferrer">View this project on GitHub</a>
+        </p>
+        <div class="disclaimer">
+          This tool is currently under validation and is intended for research and demonstration purposes only. It is not intended for clinical decision-making.
+        </div>
+      </div>
+    </header>
+
+    <div class="grid">
+      <div class="card panel">
+        <h2>About the Patient</h2>
+
+        <div class="form-group">
+          <label for="age">Age at diagnosis</label>
+          <input type="number" id="age" name="age" min="18" max="88" step="1" placeholder="e.g., 57" required />
+          <div class="help">How old the patient was when leukemia was diagnosed. Must be between 18 and 88 years.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="sex">Sex</label>
+          <select id="sex" name="sex">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+          <div class="help">The patient's biological sex.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="eln2017">Risk group (ELN 2022)</label>
+          <select id="eln2017" name="eln2017">
+            <option value="favorable">Favorable</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="adverse">Adverse</option>
+          </select>
+          <div class="help">A risk category from lab and genetic testing that shows how the leukemia is expected to respond to treatment: Favorable is the best outlook, Adverse is the most difficult. Your doctor's report will state this.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="disease_type">How the leukemia developed</label>
+          <select id="disease_type" name="disease_type">
+            <option value="de novo">De novo (developed on its own)</option>
+            <option value="therapy-related">Therapy-related (after prior cancer treatment)</option>
+          </select>
+          <div class="help">"De novo" means the leukemia appeared without a prior cancer. "Therapy-related" means it developed after chemotherapy or radiation for a different, earlier condition.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="chromosome">Chromosome pattern</label>
+          <select id="chromosome" name="chromosome">
+            <option value="normal">Normal</option>
+            <option value="complex">Complex</option>
+          </select>
+          <div class="help">From a test called karyotyping. "Normal" means no major chromosome changes were found. "Complex" means several chromosome abnormalities were found together.</div>
+        </div>
+
+        <fieldset class="genetics">
+          <legend>Genetic Mutation Test Results</legend>
+          <p class="genetics-note">
+            These are individual genes commonly tested for in AML using a blood or bone marrow sample. For each one, choose Positive if the mutation was found, Negative if it was tested for and not found, or Unknown if that test wasn't done or you're not sure.
+          </p>
+
+          <div class="form-group">
+            <label for="flt3_itd_cat">FLT3-ITD</label>
+            <select id="flt3_itd_cat" name="flt3_itd_cat">
+              <option value="1">Positive</option>
+              <option value="0">Negative</option>
+              <option value="-1">Unknown</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="npm1_cat">NPM1</label>
+            <select id="npm1_cat" name="npm1_cat">
+              <option value="1">Positive</option>
+              <option value="0">Negative</option>
+              <option value="-1">Unknown</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="runx1_cat">RUNX1</label>
+            <select id="runx1_cat" name="runx1_cat">
+              <option value="1">Positive</option>
+              <option value="0">Negative</option>
+              <option value="-1">Unknown</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="asxl1_cat">ASXL1</label>
+            <select id="asxl1_cat" name="asxl1_cat">
+              <option value="1">Positive</option>
+              <option value="0">Negative</option>
+              <option value="-1">Unknown</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 4px;">
+            <label for="tp53_cat">TP53</label>
+            <select id="tp53_cat" name="tp53_cat">
+              <option value="1">Positive</option>
+              <option value="0">Negative</option>
+              <option value="-1">Unknown</option>
+            </select>
+          </div>
+        </fieldset>
+
+        <button class="btn" id="predictBtn">Predict</button>
+        <div class="small-note">
+          Results will appear after prediction.
+        </div>
+      </div>
+
+      <div class="card results">
+        <h2>Survival prediction</h2>
+        <div id="statusBox" class="status"></div>
+
+        <div class="chart-wrap">
+          <div id="chartContainer">
+            <canvas id="survivalChart"></canvas>
+            <div id="hoverTooltip"></div>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>% probability of survival</th>
+              </tr>
+            </thead>
+            <tbody id="survivalTableBody">
+              <tr><td>6 months</td><td>—</td></tr>
+              <tr><td>12 months</td><td>—</td></tr>
+              <tr><td>18 months</td><td>—</td></tr>
+              <tr><td>24 months</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>Website visitors up to today: <span class="visitor-count" id="visitorCount">0</span></div>
+      <div>AML survival prototype</div>
+    </div>
+  </div>
+
+  <script>
+    let survivalChart = null;
+
+    function getFeaturePayload() {
+      return {
+        age: Number(document.getElementById('age').value),
+        sex: document.getElementById('sex').value,
+        eln2017: document.getElementById('eln2017').value,
+        disease_type: document.getElementById('disease_type').value,
+        chromosome: document.getElementById('chromosome').value,
+        flt3_itd_cat: Number(document.getElementById('flt3_itd_cat').value),
+        npm1_cat: Number(document.getElementById('npm1_cat').value),
+        runx1_cat: Number(document.getElementById('runx1_cat').value),
+        asxl1_cat: Number(document.getElementById('asxl1_cat').value),
+        tp53_cat: Number(document.getElementById('tp53_cat').value)
+      };
+    }
+
+    function showStatus(message, isError = false) {
+      const box = document.getElementById('statusBox');
+      box.style.display = 'block';
+      box.textContent = message;
+      box.style.background = isError ? '#fff1f2' : '#eef6ff';
+      box.style.borderColor = isError ? '#fecdd3' : '#cfe0ff';
+      box.style.color = isError ? '#9f1239' : '#16324f';
+    }
+
+    function formatPct(value) {
+      if (value === null || value === undefined || Number.isNaN(value)) return '—';
+      return (Number(value) * 100).toFixed(2) + '%';
+    }
+
+    function extractPredictionData(data) {
+      const times = data.times || data.time || data.percent_months || [];
+      const survival = data.survival || data.survival_probability || data.survival_probs || [];
+      const percentMonths = data.percent_months || times;
+
+      return { times, survival, percentMonths };
+    }
+
+    function interpolate(points, x) {
+      if (!points.length) return null;
+
+      if (x <= points[0].x) return points[0].y;
+      if (x >= points[points.length - 1].x) return points[points.length - 1].y;
+
+      for (let i = 0; i < points.length - 1; i++) {
+        const p1 = points[i];
+        const p2 = points[i + 1];
+
+        if (x >= p1.x && x <= p2.x) {
+          const ratio = (x - p1.x) / (p2.x - p1.x);
+          return p1.y + ratio * (p2.y - p1.y);
+        }
+      }
+
+      return null;
+    }
+
+    function renderChart(times, survival) {
+      const ctx = document.getElementById('survivalChart').getContext('2d');
+
+      if (survivalChart) {
+        survivalChart.destroy();
+      }
+
+      const points = times.map((t, i) => ({
+        x: Number(t),
+        y: Number(survival[i])
+      }));
+
+      survivalChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          datasets: [{
+            label: 'Survival probability',
+            data: points,
+            borderColor: '#0d9488',
+            backgroundColor: 'rgba(13, 148, 136, 0.14)',
+            fill: true,
+            tension: 0.22,
+            pointRadius: 0,
+            borderWidth: 3
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: true,
+              labels: {
+                color: '#16324f',
+                font: { weight: '600' }
+              }
+            },
+            tooltip: {
+              enabled: false
+            }
+          },
+          scales: {
+            x: {
+              type: 'linear',
+              min: 0,
+              max: 25,
+              title: {
+                display: true,
+                text: 'Time (months)',
+                color: '#16324f',
+                font: { weight: '600' }
+              },
+              ticks: {
+                color: '#5f7285'
+              },
+              grid: {
+                color: '#edf2f7'
+              }
+            },
+            y: {
+              min: 0,
+              max: 1,
+              title: {
+                display: true,
+                text: 'Survival probability',
+                color: '#16324f',
+                font: { weight: '600' }
+              },
+              ticks: {
+                color: '#5f7285',
+                callback: function(value) {
+                  return (value * 100).toFixed(0) + '%';
+                }
+              },
+              grid: {
+                color: '#edf2f7'
+              }
+            }
+          }
+        }
+      });
+      const canvas = document.getElementById('survivalChart');
+      const tooltipEl = document.getElementById('hoverTooltip');
+
+      canvas.addEventListener('mousemove', (evt) => {
+        const rect = canvas.getBoundingClientRect();
+        const xPixel = evt.clientX - rect.left;
+        const yPixel = evt.clientY - rect.top;
+
+        const chartArea = survivalChart.chartArea;
+
+        if (
+          xPixel < chartArea.left || xPixel > chartArea.right ||
+          yPixel < chartArea.top || yPixel > chartArea.bottom
+        ) {
+          tooltipEl.style.display = 'none';
+          return;
+        }
+
+        const xValue = survivalChart.scales.x.getValueForPixel(xPixel);
+        const yValue = interpolate(points, xValue);
+
+        if (yValue === null) {
+          tooltipEl.style.display = 'none';
+          return;
+        }
+
+        tooltipEl.style.display = 'block';
+        tooltipEl.style.left = xPixel + 'px';
+        tooltipEl.style.top = yPixel + 'px';
+
+        tooltipEl.textContent =
+          `${xValue.toFixed(1)} months: ${(yValue * 100).toFixed(2)}%`;
+      });
+
+      canvas.addEventListener('mouseleave', () => {
+        tooltipEl.style.display = 'none';
+      });
+    }
+
+    function updateTable(times, survival) {
+      const wanted = [6, 12, 18, 24];
+      const tbody = document.getElementById('survivalTableBody');
+      tbody.innerHTML = '';
+
+      wanted.forEach((month) => {
+        let idx = times.findIndex(t => Math.round(Number(t)) === month);
+        let prob = idx >= 0 ? survival[idx] : null;
+
+        const row = document.createElement('tr');
+        const td1 = document.createElement('td');
+        const td2 = document.createElement('td');
+
+        td1.textContent = month + ' months';
+        td2.textContent = formatPct(prob);
+
+        row.appendChild(td1);
+        row.appendChild(td2);
+        tbody.appendChild(row);
+      });
+    }
+
+    async function predict() {
+      const btn = document.getElementById('predictBtn');
+      btn.disabled = true;
+      btn.textContent = 'Predicting...';
+
+      try {
+        const features = getFeaturePayload();
+
+        if (Number.isNaN(features.age)) {
+          showStatus('Please enter a valid age at diagnosis.', true);
+          return;
+        }
+
+        const res = await fetch('/predict', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ features })
+        });
+
+        if (!res.ok) {
+          throw new Error('Prediction request failed with status ' + res.status);
+        }
+
+        const data = await res.json();
+        const { times, survival } = extractPredictionData(data);
+
+        if (!times.length || !survival.length) {
+          throw new Error('Backend response did not include times and survival arrays.');
+        }
+
+        renderChart(times, survival);
+        updateTable(times, survival);
+        showStatus('Prediction completed successfully.');
+      } catch (err) {
+        console.error(err);
+        showStatus('Unable to get prediction from backend. Please check the server and try again.', true);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Predict';
+      }
+    }
+
+    async function updateVisitorCount() {
+      const el = document.getElementById('visitorCount');
+      const key = 'aml_visitor_count';
+
+      try {
+        const res = await fetch('/visit', { method: 'POST' });
+        if (!res.ok) throw new Error('visit endpoint unavailable');
+
+        const data = await res.json().catch(() => ({}));
+        if (typeof data.count === 'number') {
+          el.textContent = data.count;
+          localStorage.setItem(key, String(data.count));
+          return;
+        }
+      } catch (e) {
+        const current = parseInt(localStorage.getItem(key) || '0', 10) || 0;
+        const next = current + 1;
+        localStorage.setItem(key, String(next));
+        el.textContent = next;
+      }
+    }
+
+    document.getElementById('predictBtn').addEventListener('click', predict);
+    updateVisitorCount();
+
+    // Optional initial chart placeholder
+    renderChart([0, 5, 10, 15, 20, 25], [1, 0.92, 0.84, 0.76, 0.68, 0.6]);
+    updateTable([0, 5, 10, 15, 20, 25], [1, 0.92, 0.84, 0.76, 0.68, 0.6]);
+    document.getElementById('statusBox').style.display = 'none';
+  </script>
+</body>
+</html>
