@@ -1,13 +1,13 @@
 # Master Project - Main Script
 # Machine Learning for Survival Analysis in AML
 # Python version 3.12
-# 05/04/2026
+# 04/06/2026
 # by Steve Tungjitviboonkun
 
 # Required packages are listed in requirements.txt
 # Install them using: pip install -r requirements.txt
 
-#Master Project/
+#Master_Project/
 #├── data/
 #│   └── data_clinical.csv
 #│   └── data_clinical_template.csv
@@ -21,7 +21,7 @@
 # Pipeline:
 # 1. Load and clean data
 # 2. Survival modeling with Cox, RSF, GBM (cross-validation)
-# 3. Binary modeling for 12-month mortality
+# 3. Binary modeling for 24-month mortality
 # 4. Bootstrap robustness analysis
 # 5. Export results to DOCX
 
@@ -67,9 +67,9 @@ n_negative_os = (df['os_months'] <= 0).sum()
 print('Patients with negative OS months (invalid):', n_negative_os)
 df = df[df['os_months'] > 0]
 print('Patients included in survival analysis:', len(df))
-# Exclude from binary model if censored <12 months (outcome unknown)
-uncertain_mask = ((df['death'] == 'no') | (df['death'] == 'No') | (df['death'] == 'NO')) & (df['os_months'] < 12)
-print('Patients excluded from binary model due to uncertain 12-month outcome:', uncertain_mask.sum())
+# Exclude from binary model if censored <24 months (outcome unknown)
+uncertain_mask = ((df['death'] == 'no') | (df['death'] == 'No') | (df['death'] == 'NO')) & (df['os_months'] < 24)
+print('Patients excluded from binary model due to uncertain 24-month outcome:', uncertain_mask.sum())
 
 # state the predictors, outcomes we will use
 predictors = [
@@ -103,6 +103,9 @@ def classify_karyo(val):
     return 'complex'
 
 df['chromosome_cat'] = df['karyotypeconcatenate'].apply(classify_karyo)
+
+# Fix 0.00-month survival times so the models don't crash
+df['os_months'] = df['os_months'].replace(0, 0.01)
 
 # Step 3: Summary table for age_at_diagnosis and os_months from full data (df table)
 summary_vars = ['age_at_diagnosis', 'os_months']
@@ -221,12 +224,12 @@ df['death'] = df['death'].map({'no': 0, 'yes': 1})
 print(df.dtypes)
 print(df.groupby('eln2017mode')['os_months'].mean()) # check mean os_months by eln2017mode
 
-# Step 9: Exclude censoring within 12 months from this binary model since we don't know if they died within 12 months or not)
+# Step 9: Exclude censoring within 24 months from this binary model since we don't know if they died within 24 months or not)
 # Create a 'df_binary' dataframe that EXCLUDES them (using the ~ symbol)
 df_binary = df[~uncertain_mask].copy() # create a separate dataframe for the binary model that excludes uncertain cases
 print('Patients included in binary analysis:', len(df_binary))
-df_binary['12_mo_death']=(df_binary['os_months'] < 12).astype(int)
-df_binary = df_binary[predictors + ['12_mo_death']] # keep only predictors and binary outcome for the binary model
+df_binary['24_mo_death']=(df_binary['os_months'] < 24).astype(int)
+df_binary = df_binary[predictors + ['24_mo_death']] # keep only predictors and binary outcome for the binary model
 print(df_binary.head())
 print(df_binary.dtypes)
 
@@ -260,7 +263,7 @@ print("\nUsing Repeated Stratified K-Fold (5 folds x 10 repeats) on the FULL dat
 cindex_eln_cv, cindex_cox_cv, cindex_rsf_cv, cindex_gbm_cv = [], [], [], []
 auroc_eln_cv, auroc_cox_cv, auroc_rsf_cv, auroc_gbm_cv = [], [], [], []
 
-times = np.arange(1, 30) # time points for time-dependent AUROC (1 to 29 months)
+times = np.arange(8, 37) # time points for time-dependent AUROC (8 to 36 months)
 y_train_struct_full = Surv.from_arrays(event=df['death'].to_numpy(dtype=bool), time=df['os_months'])
 
 for fold, (train_idx, test_idx) in enumerate(rskf.split(X, y_event), start=1):
@@ -340,10 +343,10 @@ def plot_auroc_over_time(times, listlist_eln, listlist_cox, listlist_rsf, listli
     mean_gbm = np.mean(listlist_gbm, axis=0)
 
     plt.figure(figsize=(8, 6))
-    plt.plot(times, mean_eln, label=f"ELN2017 Cox (Avg AUC: {np.mean(mean_eln):.2f})", lw=2, linestyle='--', color = 'grey')
-    plt.plot(times, mean_cox, label=f"Cox (Avg AUC: {np.mean(mean_cox):.2f})", lw=2, color = '#1f77b4')
-    plt.plot(times, mean_rsf, label=f"RSF (Avg AUC: {np.mean(mean_rsf):.2f})", lw=2, color = 'orange')
-    plt.plot(times, mean_gbm, label=f"GBM (Avg AUC: {np.mean(mean_gbm):.2f})", lw=2, color = 'green')
+    plt.plot(times, mean_eln, label=f"ELN2017 Cox (Avg AUC: {np.mean(mean_eln):.2f})", lw=2, linestyle='--')
+    plt.plot(times, mean_cox, label=f"Cox (Avg AUC: {np.mean(mean_cox):.2f})", lw=2)
+    plt.plot(times, mean_rsf, label=f"RSF (Avg AUC: {np.mean(mean_rsf):.2f})", lw=2)
+    plt.plot(times, mean_gbm, label=f"GBM (Avg AUC: {np.mean(mean_gbm):.2f})", lw=2)
 
     plt.xlabel("Months")
     plt.ylabel("Time-dependent AUROC")
@@ -389,7 +392,7 @@ print("\nC-index for Cox, RSF, GBM survival models (Cross-validated):")
 print(cindex_df)
 
 # mode impute full X for final model fitting and coefficient extraction
-X_full_imputed = mode_imputer.transform(X)
+X_full_imputed = mode_imputer.fit_transform(X)
 X_full = pd.DataFrame(X_full_imputed, columns=X.columns, index=X.index)
 X_full = pd.get_dummies(X_full, columns=cat_cols, drop_first=True) 
 X_full[X_full.select_dtypes('bool').columns] = X_full.select_dtypes('bool').astype(int)
@@ -411,15 +414,15 @@ joblib.dump(rsf_cv, os.path.join(MODELS_DIR, "rsf_model.joblib"))
 joblib.dump(gbm_cv, os.path.join(MODELS_DIR, "gbm_model.joblib"))
 joblib.dump(mode_imputer, os.path.join(MODELS_DIR, "mode_imputer.joblib"))
 print("Models saved to:", MODELS_DIR)
-# --- Binary models for 12-month survival ---=================================================================
+# --- Binary models for 24-month survival ---=================================================================
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neural_network import MLPClassifier
 from xgboost import XGBClassifier
 
 # Prepare full dataset for binary outcome
-X_binary = df_binary.drop(['12_mo_death'], axis=1)
-y_binary = df_binary['12_mo_death']
+X_binary = df_binary.drop(['24_mo_death'], axis=1)
+y_binary = df_binary['24_mo_death']
 # drop rows with missing values in the binary outcome (if any)
 mask_binary = y_binary.notna()
 X_binary = X_binary[mask_binary]
@@ -445,7 +448,7 @@ for fold, (train_idx, test_idx) in enumerate(rskf_bin.split(X_binary, y_binary),
     y_true_all.extend(yte) # collect true labels for all folds for later calibration plot
     
     # Mode imputation
-    Xtr_imputed = mode_imputer.transform(Xtr) # fit on training data
+    Xtr_imputed = mode_imputer.fit_transform(Xtr) # fit on training data
     Xte_imputed = mode_imputer.transform(Xte) # transform test data using the same imputer fitted on training data
     
     # Convert back to DataFrame to maintain column names for scaling
@@ -561,11 +564,11 @@ for ax, (name, probs) in zip(axes.flat, plot_configs):
     ax.grid(True, linestyle='--', alpha=0.6)
 
 plt.tight_layout()
-plt.savefig(os.path.join(FIGURES_DIR, "calibration_1yr_models.jpg"), dpi=300)
+plt.savefig(os.path.join(FIGURES_DIR, "calibration_2yr_models.jpg"), dpi=300)
 plt.show()
 
 # fit the model using full dataset for coefficient extraction and to save the final model
-X_binary_imputed = mode_imputer.transform(X_binary) # mode imputer fitted on full data
+X_binary_imputed = mode_imputer.fit_transform(X_binary) # mode imputer fitted on full data
 X_binary_imputed = pd.DataFrame(X_binary_imputed, columns=X_binary.columns, index=X_binary.index)
 X_binary_full = pd.get_dummies(X_binary_imputed, columns=cat_cols, drop_first=True)
 X_binary_full[X_binary_full.select_dtypes('bool').columns] = X_binary_full.select_dtypes('bool').astype(int)
@@ -613,12 +616,12 @@ log_or = np.exp(log_coefs)
 
 # Approximate standard errors for logistic coefficients using the observed information (Hessian)
 try:
-    X_design = X_binary_scaled.copy()
+    X_design = Xtr_scaled.copy()
     if 'const' not in X_design.columns:
         X_design = X_design.copy()
         X_design.insert(0, 'const', 1.0)
     X_mat = X_design.values
-    p = lr_cv.predict_proba(X_binary_scaled)[:, 1]
+    p = lr_cv.predict_proba(Xtr_scaled)[:, 1]
     W = p * (1 - p)
     XtWX = X_mat.T @ (W[:, None] * X_mat)
     cov_mat = np.linalg.inv(XtWX)
@@ -631,6 +634,7 @@ except Exception:
 log_or_lower = np.exp(log_coefs - 1.96 * log_se)
 log_or_upper = np.exp(log_coefs + 1.96 * log_se)
 
+#rf_imp = pd.Series(rf_cv.feature_importances_, index=features)
 xgb_imp = pd.Series(xgb_cv.feature_importances_, index=features)
 gbm_imp = pd.Series(gbm_cv.feature_importances_, index=features)
 
@@ -679,7 +683,7 @@ for i in range(n_iterations):
     y_e_bs = y_event.iloc[idx].reset_index(drop=True)
 
     # Mode imputation on the bootstrap sample (in case there are new missing values after resampling)
-    X_bs = pd.DataFrame(mode_imputer.transform(X_bs), columns=X.columns)
+    X_bs = pd.DataFrame(mode_imputer.fit_transform(X_bs), columns=X.columns)
 
     #encode
     X_bs = pd.get_dummies(X_bs, columns=cat_cols, drop_first=True)
@@ -709,7 +713,7 @@ for i in range(n_iterations):
     y_bi_bs = y_binary.iloc[idxb].reset_index(drop=True)
 
     # Mode imputation on the bootstrap sample for binary models
-    X_bi_bs = pd.DataFrame(mode_imputer.transform(X_bi_bs), columns=X_binary.columns)
+    X_bi_bs = pd.DataFrame(mode_imputer.fit_transform(X_bi_bs), columns=X_binary.columns)
     # encode
     X_bi_bs = pd.get_dummies(X_bi_bs, columns=cat_cols, drop_first=True)
     X_bi_bs = X_bi_bs.reindex(columns=features, fill_value=0)
@@ -717,8 +721,7 @@ for i in range(n_iterations):
     X_bi_bs = X_bi_bs.apply(pd.to_numeric, errors='coerce')
 
     scaler_bs = StandardScaler()
-    X_bi_sc = X_bi_bs.copy()
-    X_bi_sc[num_cols] = scaler_bs.fit_transform(X_bi_bs[num_cols])
+    X_bi_sc = pd.DataFrame(scaler_bs.fit_transform(X_bi_bs), columns=X_bi_bs.columns)
 
     # Logistic Regression, Random Forest, XGBoost, MLP
     lr_bs = LogisticRegression(max_iter=1000).fit(X_bi_sc, y_bi_bs)
@@ -727,12 +730,14 @@ for i in range(n_iterations):
     aucs_rf_bs = auc(*roc_curve(y_bi_bs, rf_bs.predict_proba(X_bi_bs)[:, 1])[:2])
     xgb_bs = XGBClassifier(n_estimators=200, verbosity=0).fit(X_bi_bs, y_bi_bs)
     aucs_xgb_bs = auc(*roc_curve(y_bi_bs, xgb_bs.predict_proba(X_bi_bs)[:, 1])[:2])
+#    mlp_bs = MLPClassifier(hidden_layer_sizes=(32, 16), max_iter=1000).fit(X_bi_sc, y_bi_bs)
 
     # --- 3. Collect Results ---
     log_series = pd.Series(lr_bs.coef_.ravel(), index=X_bi_sc.columns)
     log_or_bs = np.exp(log_series)
     rf_series = pd.Series(rf_bs.feature_importances_, index=X_bi_bs.columns)
     xgb_series = pd.Series(xgb_bs.feature_importances_, index=X_bi_bs.columns)
+#    mlp_series = pd.Series(np.mean(np.abs(mlp_bs.coefs_[0]), axis=1), index=X_bi_sc.columns)
 
     for f in features:
         row[f'Cox_{f}']      = cox_hr_bs.get(f)
@@ -740,6 +745,7 @@ for i in range(n_iterations):
         row[f'RF_{f}']       = rf_series.get(f)
         row[f'XGB_{f}']      = xgb_series.get(f)
         row[f'GBM_{f}']      = gbm_series.get(f)
+#        row[f'MLP_{f}']      = mlp_series.get(f)
 
     # Overall model performance metrics for bootstrap
     row['Cindex_Cox'] = cindex_cox_bs
@@ -805,7 +811,7 @@ doc.add_heading("Patient Exclusion Summary", level=1)
 doc.add_paragraph(f"Total patients: {n_total}")
 doc.add_paragraph(f"Excluded due to missing death information: {n_missing_death_info}")
 doc.add_paragraph(f"Included in survival analysis: {len(df)}")
-doc.add_paragraph(f"Excluded from binary model (censored <12 months, outcome unknown): {uncertain_mask.sum()}")
+doc.add_paragraph(f"Excluded from binary model (censored <24 months, outcome unknown): {uncertain_mask.sum()}")
 doc.add_paragraph(f"Included in binary models: {len(df_binary)}")
 df_to_doc_table(doc, summary_df, 'Summary Table: Age at Diagnosis and OS Months')
 df_to_doc_table(doc, gene_summary_df, 'Gene Mutation Summary Table')
@@ -813,7 +819,7 @@ df_to_doc_table(doc, sex_summary, 'Sex Summary Table')
 df_to_doc_table(doc, denovo_summary, 'Denovo Category Summary Table')
 df_to_doc_table(doc, eln_summary, 'ELN 2017 Classification Summary Table')
 df_to_doc_table(doc, chrom_summary, 'Chromosome Category Summary Table')
-df_to_doc_table(doc, cindex_df, 'Survival Models Harrell\'s C-index Comparison and AUROC at 12 months')
+df_to_doc_table(doc, cindex_df, 'Survival Models Harrell\'s C-index Comparison')
 df_to_doc_table(doc, metrics_df, 'Binary Models Performance (AUROCs and Brier scores)')
 df_to_doc_table(doc, coeffs_df, 'Model Hazard Ratios for each variables')
 df_to_doc_table(doc, imps_df, 'Model Importance Scores for each variable')
@@ -833,7 +839,7 @@ add_fig(doc, os.path.join(FIGURES_DIR, 'time_dependent_auroc.jpg'),
     'Time-dependent AUROC for Cox, RSF, GBM survival')
 add_fig(doc, os.path.join(FIGURES_DIR, 'roc_curves_binary_models.jpg'),
     'ROC Curves for Binary Models (Logistic Regression, Random Forest, XGBoost, MLP)')
-add_fig(doc, os.path.join(FIGURES_DIR, 'calibration_1yr_models.jpg'),
+add_fig(doc, os.path.join(FIGURES_DIR, 'calibration_2yr_models.jpg'),
     'Calibration Plots for Binary Models (Logistic Regression, Random Forest, XGBoost, MLP)')
 
 output_path = os.path.join(OUTPUT_DIR, "ML_all_results.docx") # save the document in the output directory
