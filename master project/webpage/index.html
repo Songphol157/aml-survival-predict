@@ -737,11 +737,26 @@
       btn.textContent = 'Predicting...';
 
       try {
-        const features = getFeaturePayload();
+        const ageRaw = document.getElementById('age').value.trim();
 
-        if (Number.isNaN(features.age)) {
-          showStatus('Please enter a valid age at diagnosis.', true);
+        if (ageRaw === '') {
+          showStatus('Please enter the age at diagnosis.', true);
           return;
+        }
+
+        const age = Number(ageRaw);
+
+        if (!Number.isFinite(age) || !Number.isInteger(age)) {
+          showStatus('Please enter the age as a whole number, for example 57.', true);
+          return;
+        }
+
+        if (age < 18 || age > 88) {
+          showStatus('Predictions outside the range are not available.', true);
+          return;
+        }
+
+        const features = getFeaturePayload();
         }
 
         const res = await fetch('/predict', {
