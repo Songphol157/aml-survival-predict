@@ -21,7 +21,7 @@ app = Flask(__name__, template_folder='.')
 
 # Load model (relative to webpage/)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(BASE_DIR, "..", "output", "models", "gbm_model.joblib")
+MODEL_PATH = os.path.join(BASE_DIR, "..", "output", "models", "rsf_model.joblib")
 model = joblib.load(MODEL_PATH)
 
 # Persistent visitor counter (survives restarts; simple file-based store)
