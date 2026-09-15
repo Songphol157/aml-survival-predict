@@ -15,7 +15,6 @@ import pandas as pd
 import numpy as np
 import os
 import json
-import threading
 
 app = Flask(__name__, template_folder='.')
 
@@ -24,23 +23,6 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(BASE_DIR, "..", "output", "models", "rsf_model.joblib")
 model = joblib.load(MODEL_PATH)
 
-# Persistent visitor counter (survives restarts; simple file-based store)
-VISIT_COUNT_PATH = os.path.join(BASE_DIR, "..", "output", "visit_count.json")
-_visit_lock = threading.Lock()
-
-
-def _read_visit_count():
-    try:
-        with open(VISIT_COUNT_PATH, "r") as f:
-            return int(json.load(f).get("count", 0))
-    except (FileNotFoundError, json.JSONDecodeError, ValueError):
-        return 0
-
-
-def _write_visit_count(count):
-    os.makedirs(os.path.dirname(VISIT_COUNT_PATH), exist_ok=True)
-    with open(VISIT_COUNT_PATH, "w") as f:
-        json.dump({"count": count}, f)
 
 FEATURES = model.feature_names_in_ if hasattr(model, "feature_names_in_") else None
 
@@ -133,13 +115,6 @@ def predict():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-
-@app.route("/visit", methods=["POST"])
-def visit():
-    with _visit_lock:
-        count = _read_visit_count() + 1
-        _write_visit_count(count)
-    return jsonify({"count": count})
 
 
 if __name__ == "__main__":

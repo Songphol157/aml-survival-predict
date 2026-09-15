@@ -317,10 +317,6 @@
       flex-wrap: wrap;
     }
 
-    .visitor-count {
-      font-weight: 700;
-      color: var(--success);
-    }
 
     .small-note {
       font-size: 0.88rem;
@@ -450,45 +446,45 @@
           <div class="form-group">
             <label for="flt3_itd_cat">FLT3-ITD</label>
             <select id="flt3_itd_cat" name="flt3_itd_cat">
+              <option value="-1">Unknown</option>
               <option value="1">Positive</option>
               <option value="0">Negative</option>
-              <option value="-1">Unknown</option>
             </select>
           </div>
 
           <div class="form-group">
             <label for="npm1_cat">NPM1</label>
             <select id="npm1_cat" name="npm1_cat">
+              <option value="-1">Unknown</option>
               <option value="1">Positive</option>
               <option value="0">Negative</option>
-              <option value="-1">Unknown</option>
             </select>
           </div>
 
           <div class="form-group">
             <label for="runx1_cat">RUNX1</label>
             <select id="runx1_cat" name="runx1_cat">
+              <option value="-1">Unknown</option>
               <option value="1">Positive</option>
               <option value="0">Negative</option>
-              <option value="-1">Unknown</option>
             </select>
           </div>
 
           <div class="form-group">
             <label for="asxl1_cat">ASXL1</label>
             <select id="asxl1_cat" name="asxl1_cat">
+              <option value="-1">Unknown</option>
               <option value="1">Positive</option>
               <option value="0">Negative</option>
-              <option value="-1">Unknown</option>
             </select>
           </div>
 
           <div class="form-group" style="margin-bottom: 4px;">
             <label for="tp53_cat">TP53</label>
             <select id="tp53_cat" name="tp53_cat">
+              <option value="-1">Unknown</option>
               <option value="1">Positive</option>
               <option value="0">Negative</option>
-              <option value="-1">Unknown</option>
             </select>
           </div>
         </fieldset>
@@ -530,7 +526,6 @@
     </div>
 
     <div class="footer">
-      <div>Website visitors up to today: <span class="visitor-count" id="visitorCount">0</span></div>
       <div>AML survival prototype</div>
     </div>
   </div>
@@ -778,30 +773,8 @@
       }
     }
 
-    async function updateVisitorCount() {
-      const el = document.getElementById('visitorCount');
-      const key = 'aml_visitor_count';
-
-      try {
-        const res = await fetch('/visit', { method: 'POST' });
-        if (!res.ok) throw new Error('visit endpoint unavailable');
-
-        const data = await res.json().catch(() => ({}));
-        if (typeof data.count === 'number') {
-          el.textContent = data.count;
-          localStorage.setItem(key, String(data.count));
-          return;
-        }
-      } catch (e) {
-        const current = parseInt(localStorage.getItem(key) || '0', 10) || 0;
-        const next = current + 1;
-        localStorage.setItem(key, String(next));
-        el.textContent = next;
-      }
-    }
 
     document.getElementById('predictBtn').addEventListener('click', predict);
-    updateVisitorCount();
 
     // Optional initial chart placeholder
     renderChart([0, 5, 10, 15, 20, 25], [1, 0.92, 0.84, 0.76, 0.68, 0.6]);
