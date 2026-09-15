@@ -303,18 +303,24 @@
 
     .footer {
       margin-top: 18px;
-      padding: 14px 18px;
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      box-shadow: var(--shadow);
+      padding: 18px 20px 12px;
+      background: #000000;
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 12px;
-      color: var(--muted);
+      color: #ffffff;
       font-size: 0.94rem;
       flex-wrap: wrap;
+    }
+
+    .footer a {
+      color: #ffffff;
+    }
+
+    .footer > div {
+      max-width: 100%;
+      overflow-wrap: anywhere;
     }
 
 
@@ -343,13 +349,23 @@
 
     @media (max-width: 1024px) {
       .grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
       }
       .chart-wrap {
         min-height: 360px;
       }
       #chartContainer {
         height: 320px;
+      }
+
+      .footer {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 16px;
+      }
+
+      .footer > div {
+        width: 100%;
       }
     }
   </style>
@@ -377,7 +393,7 @@
         <rect width="240" height="200" fill="url(#helixPattern)"/>
       </svg>
       <div class="header-inner">
-        <p class="eyebrow">Acute myeloid leukemia study</p>
+        <p class="eyebrow">Acute Myeloid Leukemia study</p>
         <h1>Machine Learning Model to predict survival in AML patients</h1>
         <p class="ack">
           Developed by: Steve Tungjitviboonkun, MD, MS<br />
@@ -396,16 +412,15 @@
         <div class="form-group">
           <label for="age">Age at diagnosis</label>
           <input type="number" id="age" name="age" min="18" max="88" step="1" placeholder="e.g., 57" required />
-          <div class="help">How old the patient was when leukemia was diagnosed. Must be between 18 and 88 years.</div>
+          <div class="help">Must be between 18 and 88 years.</div>
         </div>
 
         <div class="form-group">
-          <label for="sex">Sex</label>
+          <label for="sex">Biological Sex</label>
           <select id="sex" name="sex">
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
-          <div class="help">The patient's biological sex.</div>
         </div>
 
         <div class="form-group">
@@ -424,7 +439,6 @@
             <option value="de novo">De novo (developed on its own)</option>
             <option value="therapy-related">Therapy-related (after prior cancer treatment)</option>
           </select>
-          <div class="help">"De novo" means the leukemia appeared without a prior cancer. "Therapy-related" means it developed after chemotherapy or radiation for a different, earlier condition.</div>
         </div>
 
         <div class="form-group">
@@ -433,13 +447,13 @@
             <option value="normal">Normal</option>
             <option value="complex">Complex</option>
           </select>
-          <div class="help">From a test called karyotyping. "Normal" means no major chromosome changes were found. "Complex" means several chromosome abnormalities were found together.</div>
+          <div class="help">Test called karyotyping. "Normal" means no major chromosome changes were found. "Complex" means several chromosome abnormalities were found.</div>
         </div>
 
         <fieldset class="genetics">
           <legend>Genetic Mutation Test Results</legend>
           <p class="genetics-note">
-            These are individual genes commonly tested for in AML using a blood or bone marrow sample. For each one, choose Positive if the mutation was found, Negative if it was tested for and not found, or Unknown if that test wasn't done or you're not sure.
+            From blood or bone marrow sample
           </p>
 
           <div class="form-group">
@@ -524,7 +538,7 @@
       </div>
     </div>
 
-    <div class="footer" style="display: block; line-height: 1.7;">
+    <footer class="footer" style="line-height: 1.7;">
       <div>
         Accepted for presentation at the European Society of Medical Oncology (ESMO) Congress 2026. &mdash;
           AI for clinical workflows and decision-making: <em> Abstract 179P </em>
@@ -534,7 +548,7 @@
         &nbsp;·&nbsp;
         <a href="https://doi.org/10.5281/zenodo.22717853" target="_blank" rel="noopener noreferrer">DOI 10.5281/zenodo.22717853</a>
       </div>
-    </div>
+    </footer>
   </div>
 
   <script>
