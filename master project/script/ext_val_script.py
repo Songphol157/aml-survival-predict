@@ -337,7 +337,7 @@ cph_eln = CoxPHFitter()
 cph_eln.fit(cox_eln_df, duration_col='os_months', event_col='death')
 scores_eln = cph_eln.predict_partial_hazard(X_eln)
 survival_results['eln_cox_cindex'] = concordance_index(y_time, -scores_eln)
-auc_eln, _ = cumulative_dynamic_auc(y_train_struct, y_struct_auc, scores_eln, times)
+auc_eln, mean_auroc_eln = cumulative_dynamic_auc(y_train_struct, y_struct_auc, scores_eln, times)
 
 
 
@@ -345,7 +345,7 @@ if 'cph' in models:
     try:
         scores_cox = models['cph'].predict_partial_hazard(X_ext)
         survival_results['cox_cindex'] = concordance_index(y_time, -scores_cox)
-        auc_cph, _ = cumulative_dynamic_auc(y_train_struct, y_struct_auc, scores_cox, times)
+        auc_cph, mean_auroc_cph = cumulative_dynamic_auc(y_train_struct, y_struct_auc, scores_cox, times)
         aucs['Cox'] = auc_cph
     except Exception as e:
         print('Cox evaluation error:', e)
@@ -353,7 +353,7 @@ if 'rsf' in models:
     try:
         survival_results['rsf_cindex'] = models['rsf'].score(X_ext, y_struct)
         scores_rsf = models['rsf'].predict(X_ext)
-        auc_rsf, _ = cumulative_dynamic_auc(y_train_struct, y_struct_auc, scores_rsf, times)
+        auc_rsf, mean_auroc_rsf = cumulative_dynamic_auc(y_train_struct, y_struct_auc, scores_rsf, times)
         aucs['RSF'] = auc_rsf
     except Exception as e:
         print('RSF evaluation error:', e)
@@ -361,7 +361,7 @@ if 'gbm' in models:
     try:
         survival_results['gbm_cindex'] = models['gbm'].score(X_ext, y_struct)
         scores_gbm = models['gbm'].predict(X_ext)
-        auc_gbm, _ = cumulative_dynamic_auc(y_train_struct, y_struct_auc, scores_gbm, times)
+        auc_gbm, mean_auroc_gbm = cumulative_dynamic_auc(y_train_struct, y_struct_auc, scores_gbm, times)
         aucs['GBM'] = auc_gbm
     except Exception as e:
         print('GBM survival evaluation error:', e)
@@ -369,9 +369,10 @@ if 'gbm' in models:
 
 # Model evaluation results: C-index table and time-dependent AUROC plot
 surv_cindex = []
-surv_cindex.append({'Model': 'Penalized Cox (ElasticNet)', 'C-index': round(survival_results['cox_cindex'], 3)})
-surv_cindex.append({'Model': 'Random Survival Forest', 'C-index': round(survival_results['rsf_cindex'], 3)})
-surv_cindex.append({'Model': 'Gradient Boosted Survival Models', 'C-index': round(survival_results['gbm_cindex'], 3)})
+surv_cindex.append({'Model': 'Penalized Cox (ElasticNet)', 'C-index': round(survival_results['cox_cindex'], 3), 'Mean AUROC': round(mean_auroc_cph, 3)})
+surv_cindex.append({'Model': 'Random Survival Forest', 'C-index': round(survival_results['rsf_cindex'], 3), 'Mean AUROC': round(mean_auroc_rsf, 3)})
+surv_cindex.append({'Model': 'Gradient Boosted Survival Models', 'C-index': round(survival_results['gbm_cindex'], 3), 'Mean AUROC': round(mean_auroc_gbm, 3)})
+surv_cindex.append({'Model': 'ELN2017 Cox', 'C-index': round(survival_results['eln_cox_cindex'], 3), 'Mean AUROC': round(mean_auroc_eln, 3)})
 cindex_df = pd.DataFrame(surv_cindex)
 
 # Time-dependent AUROC over months (use external data)
